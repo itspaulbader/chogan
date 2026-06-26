@@ -92,7 +92,7 @@
 
     .catalogue-shell {
       display: grid;
-      grid-template-columns: 180px minmax(0, 1fr);
+      grid-template-columns: 180px minmax(0, 1fr) 300px;
       gap: 16px;
       align-items: start;
     }
@@ -143,6 +143,141 @@
       border-color: var(--nav-color, #29364a);
       border-left-color: var(--nav-color, #29364a);
       background: #f6f8fa;
+    }
+
+    .selection-panel {
+      position: sticky;
+      top: 118px;
+      display: grid;
+      gap: 12px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      box-shadow: var(--shadow);
+    }
+
+    .selection-head {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 10px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 10px;
+    }
+
+    .selection-head h2 {
+      margin: 0;
+      font-size: 18px;
+      text-transform: uppercase;
+    }
+
+    .selection-head p {
+      margin: 2px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .selection-count {
+      min-width: 34px;
+      height: 30px;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 8px;
+      color: #fff;
+      background: #29364a;
+      font-weight: 900;
+    }
+
+    .selection-list {
+      display: grid;
+      gap: 10px;
+      max-height: calc(100vh - 330px);
+      overflow: auto;
+      padding-right: 2px;
+    }
+
+    .selection-empty {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .selection-item {
+      display: grid;
+      gap: 8px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px;
+      background: #fbfcfd;
+    }
+
+    .selection-top {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 8px;
+      align-items: start;
+    }
+
+    .selection-name {
+      margin: 0;
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: uppercase;
+      overflow-wrap: anywhere;
+    }
+
+    .selection-sub {
+      margin: 2px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .selection-price {
+      text-align: right;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .qty-row, .selection-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .qty-btn {
+      width: 32px;
+      min-height: 32px;
+      padding: 0;
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .qty-value {
+      min-width: 26px;
+      text-align: center;
+      font-weight: 900;
+    }
+
+    .remove-btn {
+      margin-left: auto;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .selection-total {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      border-top: 1px solid var(--line);
+      padding-top: 10px;
+      font-weight: 900;
+    }
+
+    .selection-actions button {
+      flex: 1 1 auto;
     }
 
     .tools {
@@ -417,6 +552,14 @@
       align-items: center;
     }
 
+    .add-btn {
+      width: 100%;
+      margin-top: 10px;
+      color: #fff;
+      border-color: #29364a;
+      background: #29364a;
+    }
+
     .pill {
       display: inline-flex;
       align-items: center;
@@ -504,8 +647,10 @@
       .summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
       .catalogue-shell { grid-template-columns: 1fr; }
-      .side-nav { position: static; }
+      .side-nav, .selection-panel { position: static; }
       .side-list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .selection-panel { order: -1; }
+      .selection-list { max-height: none; }
     }
 
     @media (max-width: 560px) {
@@ -526,6 +671,8 @@
       body { background: #fff; }
       .page { max-width: none; padding: 0; }
       .tools, .side-nav { display: none; }
+      .selection-panel { break-inside: avoid; }
+      .add-btn, .selection-actions, .qty-row button, .remove-btn { display: none; }
       header, .intro, .notice, .summary div, .card {
         box-shadow: none;
       }
@@ -579,6 +726,24 @@
         <div id="catalogue"></div>
         <div id="empty" class="empty">No items match this search.</div>
       </div>
+      <aside class="selection-panel" aria-label="Selected items">
+        <div class="selection-head">
+          <div>
+            <h2>My list</h2>
+            <p>For screenshotting or copying.</p>
+          </div>
+          <span id="selectionCount" class="selection-count">0</span>
+        </div>
+        <div id="selectionList" class="selection-list"></div>
+        <div class="selection-total">
+          <span>Total</span>
+          <span id="selectionTotal">0,00 €</span>
+        </div>
+        <div class="selection-actions">
+          <button id="copySelection" type="button">Copy list</button>
+          <button id="clearSelection" type="button">Clear</button>
+        </div>
+      </aside>
     </div>
 
     <div class="notice">
@@ -916,9 +1081,15 @@
     const categoryFilter = document.getElementById('categoryFilter');
     const brandFilter = document.getElementById('brandFilter');
     const sideNavList = document.getElementById('sideNavList');
+    const selectionList = document.getElementById('selectionList');
+    const selectionCount = document.getElementById('selectionCount');
+    const selectionTotal = document.getElementById('selectionTotal');
+    const copySelection = document.getElementById('copySelection');
+    const clearSelection = document.getElementById('clearSelection');
     const viewButtons = [...document.querySelectorAll('[data-view]')];
     let currentView = 'perfumes';
     let tierFilter = 'all';
+    let selectedItems = [];
 
     const categoryLabels = {
       all: 'All categories',
@@ -1018,6 +1189,97 @@
       return value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
     }
 
+    function priceValue(price) {
+      const cleaned = price.replace(/[^\d,.]/g, '').replace(',', '.');
+      return Number.parseFloat(cleaned) || 0;
+    }
+
+    function formatEuro(value) {
+      return value.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' });
+    }
+
+    function addToSelection(card) {
+      const item = catalogueItems.find(entry => entry.no === card.dataset.no);
+      const select = card.querySelector('.option-select');
+      const option = item.options[select.selectedIndex] || item.options[0];
+      const key = `${item.no}|${option.size}|${option.price}`;
+      const existing = selectedItems.find(entry => entry.key === key);
+
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        selectedItems.push({
+          key,
+          no: item.no,
+          name: item.name,
+          brand: item.brand,
+          group: item.group,
+          type: item.type,
+          size: option.size,
+          price: option.price,
+          qty: 1
+        });
+      }
+
+      renderSelection();
+    }
+
+    function changeQuantity(key, amount) {
+      const item = selectedItems.find(entry => entry.key === key);
+      if (!item) return;
+      item.qty += amount;
+      if (item.qty <= 0) selectedItems = selectedItems.filter(entry => entry.key !== key);
+      renderSelection();
+    }
+
+    function removeSelection(key) {
+      selectedItems = selectedItems.filter(entry => entry.key !== key);
+      renderSelection();
+    }
+
+    function selectionText() {
+      if (!selectedItems.length) return 'My Chogan list is empty.';
+      const lines = selectedItems.map(item => {
+        const label = item.group === 'Body Care' ? item.name : `${item.name} inspired by ${item.brand}`;
+        return `${item.qty} x ${item.no} ${label} - ${item.size} - ${item.price}`;
+      });
+      const total = selectedItems.reduce((sum, item) => sum + priceValue(item.price) * item.qty, 0);
+      return `${lines.join('\n')}\nTotal: ${formatEuro(total)}`;
+    }
+
+    function renderSelection() {
+      const count = selectedItems.reduce((sum, item) => sum + item.qty, 0);
+      const total = selectedItems.reduce((sum, item) => sum + priceValue(item.price) * item.qty, 0);
+
+      selectionCount.textContent = count;
+      selectionTotal.textContent = formatEuro(total);
+      clearSelection.disabled = !selectedItems.length;
+      copySelection.disabled = !selectedItems.length;
+
+      if (!selectedItems.length) {
+        selectionList.innerHTML = '<p class="selection-empty">Add products here to build a quick list.</p>';
+        return;
+      }
+
+      selectionList.innerHTML = selectedItems.map(item => `
+        <div class="selection-item" data-selection-key="${item.key}">
+          <div class="selection-top">
+            <div>
+              <p class="selection-name">${item.no} ${item.name}</p>
+              <p class="selection-sub">${item.group === 'Body Care' ? item.type : `Inspired by ${item.brand}`} - ${item.size}</p>
+            </div>
+            <div class="selection-price">${formatEuro(priceValue(item.price) * item.qty)}</div>
+          </div>
+          <div class="qty-row">
+            <button class="qty-btn" type="button" data-qty-change="-1" aria-label="Decrease quantity">-</button>
+            <span class="qty-value">${item.qty}</span>
+            <button class="qty-btn" type="button" data-qty-change="1" aria-label="Increase quantity">+</button>
+            <button class="remove-btn" type="button" data-remove-item>Remove</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
     function render() {
       const query = normalize(search.value.trim());
       const category = categoryFilter.value || 'all';
@@ -1043,7 +1305,7 @@
             </div>
             <div class="grid">
               ${items.map(item => `
-                <article class="card" style="--accent:${item.accent}">
+                <article class="card" style="--accent:${item.accent}" data-no="${item.no}">
                   <div class="product-photo" aria-hidden="true">
                           ${item.image ? `<img class="reference-img" src="${item.image}" alt="${item.brand} ${item.name} reference image" loading="eager" onerror="this.replaceWith(Object.assign(document.createElement('div'), {className: 'bottle'}))">` : `<div class="bottle"></div>`}
                   </div>
@@ -1066,6 +1328,7 @@
                     <div class="meta">
                       ${item.popular ? `<span class="pill"><span class="note-dot" aria-hidden="true"></span>&nbsp;Popular</span>` : ''}
                     </div>
+                    <button class="add-btn" type="button" data-add-item>Add to list</button>
                   </div>
                 </article>
               `).join('')}
@@ -1085,6 +1348,49 @@
       render();
     });
     brandFilter.addEventListener('change', render);
+    catalogue.addEventListener('click', event => {
+      const button = event.target.closest('[data-add-item]');
+      if (!button) return;
+      addToSelection(button.closest('.card'));
+    });
+    selectionList.addEventListener('click', event => {
+      const item = event.target.closest('[data-selection-key]');
+      if (!item) return;
+      const key = item.dataset.selectionKey;
+      const qtyButton = event.target.closest('[data-qty-change]');
+      if (qtyButton) changeQuantity(key, Number(qtyButton.dataset.qtyChange));
+      if (event.target.closest('[data-remove-item]')) removeSelection(key);
+    });
+    clearSelection.addEventListener('click', () => {
+      selectedItems = [];
+      renderSelection();
+    });
+    function fallbackCopy(text) {
+      const area = document.createElement('textarea');
+      area.value = text;
+      area.setAttribute('readonly', '');
+      area.style.position = 'fixed';
+      area.style.left = '-9999px';
+      document.body.appendChild(area);
+      area.select();
+      const copied = document.execCommand('copy');
+      area.remove();
+      if (!copied) window.prompt('Copy your list:', text);
+    }
+
+    copySelection.addEventListener('click', async () => {
+      const text = selectionText();
+      try {
+        if (!navigator.clipboard) throw new Error('Clipboard unavailable');
+        await navigator.clipboard.writeText(text);
+        copySelection.textContent = 'Copied';
+        setTimeout(() => { copySelection.textContent = 'Copy list'; }, 1200);
+      } catch (error) {
+        fallbackCopy(text);
+        copySelection.textContent = 'Copied';
+        setTimeout(() => { copySelection.textContent = 'Copy list'; }, 1200);
+      }
+    });
     sideNavList.addEventListener('click', event => {
       const button = event.target.closest('[data-nav-audience]');
       if (!button) return;
@@ -1106,6 +1412,7 @@
     });
 
     updateFilterOptions();
+    renderSelection();
     render();
   </script>
 </body>
