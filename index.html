@@ -1,0 +1,1112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chogan Perfume Catalogue</title>
+  <style>
+    :root {
+      --ink: #1f2933;
+      --muted: #657282;
+      --line: #dde4ec;
+      --paper: #fbfcfd;
+      --white: #ffffff;
+      --pink: #d12f8a;
+      --blue: #1877a6;
+      --green: #208261;
+      --gold: #a66b15;
+      --red: #b64242;
+      --shadow: 0 10px 28px rgba(24, 38, 55, .08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.35;
+    }
+
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 18px 18px 48px;
+    }
+
+    header {
+      margin-bottom: 12px;
+    }
+
+    .intro, .tools, .notice {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .intro {
+      padding: 16px 18px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .brandline {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .tag {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 7px 12px;
+      color: var(--muted);
+      font-size: 13px;
+      background: #f7f9fb;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .lead {
+      margin: 0;
+      color: var(--muted);
+      max-width: 74ch;
+      font-size: 16px;
+    }
+
+    .catalogue-shell {
+      display: grid;
+      grid-template-columns: 180px minmax(0, 1fr);
+      gap: 16px;
+      align-items: start;
+    }
+
+    .side-nav {
+      position: sticky;
+      top: 118px;
+      display: grid;
+      gap: 8px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      box-shadow: var(--shadow);
+    }
+
+    .side-title {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .side-list {
+      display: grid;
+      gap: 6px;
+    }
+
+    .side-heading {
+      margin-top: 8px;
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .side-list button {
+      justify-content: start;
+      width: 100%;
+      min-height: 34px;
+      border-left: 4px solid var(--nav-color, transparent);
+      text-align: left;
+      font-size: 13px;
+      background: #fff;
+    }
+
+    .side-list button.active {
+      color: var(--ink);
+      border-color: var(--nav-color, #29364a);
+      border-left-color: var(--nav-color, #29364a);
+      background: #f6f8fa;
+    }
+
+    .tools {
+      margin: 18px 0;
+      padding: 14px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 4;
+    }
+
+    .store-tabs, .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: end;
+    }
+
+    .store-tabs {
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 12px;
+    }
+
+    .view-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .result-count {
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .field {
+      display: grid;
+      gap: 5px;
+      min-width: 180px;
+      flex: 1 1 180px;
+    }
+
+    .field label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .search, .filter-select {
+      width: 100%;
+      min-height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 0 14px;
+      font-size: 16px;
+      color: var(--ink);
+      background: #fff;
+    }
+
+    button {
+      min-height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 0 12px;
+      background: #fff;
+      color: var(--ink);
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button.active {
+      color: #fff;
+      border-color: #29364a;
+      background: #29364a;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin: 0 0 18px;
+    }
+
+    .summary div {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+    }
+
+    .summary strong {
+      display: block;
+      font-size: 24px;
+    }
+
+    .summary span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    section { margin-top: 28px; }
+
+    .section-title {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 14px;
+      border-bottom: 1px solid var(--line);
+      border-left: 5px solid var(--section-color, #d9e1ea);
+      background: var(--section-bg, transparent);
+      border-radius: 8px 8px 0 0;
+      margin-bottom: 12px;
+      padding: 10px 12px;
+      color: var(--ink);
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: 24px;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .section-title span { color: var(--muted); font-size: 14px; }
+    .femme { --section-color: #c85a95; --section-bg: #fff7fb; }
+    .homme { --section-color: #3f83a8; --section-bg: #f5fbff; }
+    .mixte { --section-color: #4f9a7d; --section-bg: #f5fcf8; }
+    .luxe { --section-color: #b58a3b; --section-bg: #fffaf0; }
+    .luxury { --section-color: #a85a5a; --section-bg: #fff7f7; }
+    .body { --section-color: #6b7885; --section-bg: #f7f9fb; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      min-height: 254px;
+      display: grid;
+      gap: 10px;
+      align-content: start;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 4px;
+      background: #d9e1ea;
+    }
+
+    .product-photo {
+      min-height: 132px;
+      border: 1px solid #edf1f5;
+      border-radius: 8px;
+      background:
+        radial-gradient(circle at 50% 84%, rgba(44, 54, 68, .16), transparent 24%),
+        #fff;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .reference-img {
+      width: 100%;
+      height: 132px;
+      object-fit: contain;
+      padding: 10px;
+      background: #fff;
+      display: block;
+    }
+
+    .bottle {
+      width: 56px;
+      height: 94px;
+      position: relative;
+      border-radius: 10px 10px 16px 16px;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.38), transparent 25% 70%, rgba(0,0,0,.08)),
+        linear-gradient(180deg, #eef2f6, #6d7886);
+      box-shadow: 0 16px 24px rgba(30, 43, 60, .18);
+    }
+
+    .bottle::before {
+      content: "";
+      position: absolute;
+      left: 18px;
+      top: -19px;
+      width: 20px;
+      height: 22px;
+      border-radius: 4px 4px 2px 2px;
+      background: #f7f9fb;
+      border: 1px solid rgba(31, 41, 51, .12);
+    }
+
+    .bottle::after {
+      content: "Z";
+      position: absolute;
+      left: 50%;
+      top: 48%;
+      transform: translate(-50%, -50%);
+      width: 34px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 5px;
+      background: rgba(255,255,255,.82);
+      color: #29364a;
+      font-weight: 900;
+      font-size: 17px;
+    }
+
+    .num {
+      min-width: 48px;
+      height: 34px;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 8px;
+      color: #fff;
+      background: #29364a;
+      font-weight: 900;
+      font-size: 14px;
+    }
+
+    .product { min-width: 0; }
+
+    .product-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: start;
+    }
+
+    .name {
+      margin: 0 0 3px;
+      font-weight: 900;
+      text-transform: uppercase;
+      font-size: 15px;
+      overflow-wrap: anywhere;
+    }
+
+    .maker {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .maker strong {
+      display: block;
+      color: #364454;
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 0;
+    }
+
+    .meta {
+      margin-top: 8px;
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      border-radius: 999px;
+      background: #f4f7fa;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      padding: 2px 8px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .pill.price {
+      color: #29364a;
+      background: #f8fafc;
+    }
+
+    .details {
+      display: grid;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .detail {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      border-top: 1px solid #edf1f5;
+      padding-top: 6px;
+      font-size: 12px;
+    }
+
+    .detail span:first-child {
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .detail span:last-child {
+      color: var(--ink);
+      font-weight: 800;
+      text-align: right;
+    }
+
+    .option-select {
+      width: 100%;
+      min-height: 36px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--ink);
+      padding: 0 9px;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .note-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #b653d9;
+      display: inline-block;
+    }
+
+    .notice {
+      margin-top: 26px;
+      padding: 14px 16px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .empty {
+      display: none;
+      padding: 28px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    @media (max-width: 900px) {
+      .filter-row { justify-content: flex-start; }
+      .summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .catalogue-shell { grid-template-columns: 1fr; }
+      .side-nav { position: static; }
+      .side-list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 560px) {
+      .page { padding: 16px 10px 34px; }
+      .intro { padding: 16px; }
+      .summary, .price-list { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .card { min-height: 232px; }
+      .product-photo { min-height: 112px; }
+      .reference-img { height: 112px; }
+      .section-title { align-items: start; flex-direction: column; }
+      .tools { position: static; }
+      button { flex: 1 1 auto; }
+      .side-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media print {
+      body { background: #fff; }
+      .page { max-width: none; padding: 0; }
+      .tools, .side-nav { display: none; }
+      header, .intro, .notice, .summary div, .card {
+        box-shadow: none;
+      }
+      header { grid-template-columns: 1fr; }
+      .catalogue-shell { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .card { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <div class="intro">
+        <h1>Perfume catalogue</h1>
+        <p class="lead">Browse Chogan perfume references and body care products. Search by number, fragrance, brand or product type.</p>
+      </div>
+    </header>
+
+    <div class="tools">
+      <div class="store-tabs">
+        <div class="view-buttons" aria-label="Store view">
+          <button class="active" type="button" data-view="perfumes">Perfumes</button>
+          <button type="button" data-view="body">Body Care</button>
+        </div>
+        <span class="result-count"><span id="totalCount">0</span> items</span>
+      </div>
+      <div class="filter-row">
+        <div class="field">
+          <label for="search">Search</label>
+          <input id="search" class="search" type="search" placeholder="Number, fragrance or brand..." aria-label="Search">
+        </div>
+        <div class="field">
+          <label for="categoryFilter">Category</label>
+          <select id="categoryFilter" class="filter-select" aria-label="Category"></select>
+        </div>
+        <div class="field">
+          <label for="brandFilter">Brand</label>
+          <select id="brandFilter" class="filter-select" aria-label="Brand"></select>
+        </div>
+        <button type="button" onclick="window.print()">Print</button>
+      </div>
+    </div>
+
+    <div class="catalogue-shell">
+      <aside class="side-nav" aria-label="Category navigation">
+        <div class="side-title">Categories</div>
+        <div id="sideNavList" class="side-list"></div>
+      </aside>
+      <div>
+        <div id="catalogue"></div>
+        <div id="empty" class="empty">No items match this search.</div>
+      </div>
+    </div>
+
+    <div class="notice">
+      Brand names are mentioned only to identify the fragrance families that inspired these references. Chogan products are independent creations and are not counterfeits.
+    </div>
+
+  </main>
+
+  <script>
+    const referenceImages = {
+          "001": "reference-images/001-paco-rabanne-one-million.jpg",
+          "002": "reference-images/002-armani-acqua-di-gio.jpg",
+          "003": "reference-images/003-dior-fahrenheit.jpg",
+          "004": "reference-images/004-d-g-the-one.jpg",
+          "006": "reference-images/006-ysl-opium.jpg",
+          "007": "reference-images/007-dior-j-adore.jpg",
+          "010": "reference-images/010-thierry-mugler-alien.jpg",
+          "011": "reference-images/011-d-g-light-blue.jpg",
+          "012": "reference-images/012-dior-eau-sauvage.jpg",
+          "014": "reference-images/014-ysl-manifesto.jpg",
+          "015": "reference-images/015-laura-biagiotti-roma-uomo.jpg",
+          "016": "reference-images/016-jpg-le-male.jpg",
+          "018": "reference-images/018-cartier-declaration.jpg",
+          "019": "reference-images/019-paco-rabanne-lady-million.jpg",
+          "020": "reference-images/020-ysl-la-nuit-de-l-homme.jpg",
+          "021": "reference-images/021-d-g-light-blue.jpg",
+          "022": "reference-images/022-hermes-terre-d-hermes.jpg",
+          "023": "reference-images/023-dior-hypnotic-poison.jpg",
+          "024": "reference-images/024-chanel-chanel-n-5.jpg",
+          "025": "reference-images/025-narciso-rodriguez-for-her.jpg",
+          "026": "reference-images/026-kenzo-flower.jpg",
+          "027": "reference-images/027-lancome-tresor.jpg",
+          "028": "reference-images/028-thierry-mugler-angel.jpg",
+          "029": "reference-images/029-issey-miyake-l-eau-d-issey.jpg",
+          "030": "reference-images/030-paco-rabanne-black-xs.jpg",
+          "032": "reference-images/032-viktor-rolf-spice-bomb.jpg",
+          "033": "reference-images/033-armani-black-code.jpg",
+          "037": "reference-images/037-bvlgari-man.jpg",
+          "038": "reference-images/038-chanel-bleu.jpg",
+          "039": "reference-images/039-dior-miss-dior-cherie.jpg",
+          "040": "reference-images/040-lancome-hypnose.jpg",
+          "042": "reference-images/042-lancome-la-vie-est-belle.jpg",
+          "044": "reference-images/044-creed-silver-mountain.jpg",
+          "047": "reference-images/047-versace-crystal-noir.jpg",
+          "048": "reference-images/048-chanel-allure-homme.jpg",
+          "049": "reference-images/049-d-g-dolce.jpg",
+          "051": "reference-images/051-chanel-coco-mademoiselle.jpg",
+          "052": "reference-images/052-cartier-pasha.jpg",
+          "053": "reference-images/053-narciso-rodriguez-narciso.jpg",
+          "054": "reference-images/054-tom-ford-black-orchid.jpg",
+          "055": "reference-images/055-ysl-black-opium.jpg",
+          "056": "reference-images/056-givenchy-ange-ou-demon.jpg",
+          "057": "reference-images/057-bvlgari-omnia-amethyste.jpg",
+          "061": "reference-images/061-paco-rabanne-invictus.jpg",
+          "062": "reference-images/062-d-g-intenso.jpg",
+          "063": "reference-images/063-hugo-boss-hugo.jpg",
+          "064": "reference-images/064-bvlgari-omnia-indian-garnet.jpg",
+          "067": "reference-images/067-paco-rabanne-olympea.jpg",
+          "068": "reference-images/068-creed-aventus.jpg",
+          "069": "reference-images/069-profumum-roma-acqua-di-sale.jpg",
+          "070": "reference-images/070-d-g-the-one.jpg",
+          "071": "reference-images/071-chanel-allure.jpg",
+          "072": "reference-images/072-reminiscence-patchouli.jpg",
+          "073": "reference-images/073-creed-himalaya.jpg",
+          "074": "reference-images/074-nasomatto-black-afgano.jpg",
+          "075": "reference-images/075-clive-christian-x-for-men.jpg",
+          "076": "reference-images/076-armani-acqua-di-gioia.jpg",
+          "079": "reference-images/079-ysl-myslf.jpg",
+          "080": "reference-images/080-armani-si.jpg",
+          "081": "reference-images/081-jpg-classique-essence.jpg",
+          "082": "reference-images/082-ferragamo-signorina.jpg",
+          "084": "reference-images/084-versace-dylan-blue.jpg",
+          "085": "reference-images/085-chanel-chance.jpg",
+          "086": "reference-images/086-mont-blanc-legend.jpg",
+          "087": "reference-images/087-azzaro-wanted.jpg",
+          "088": "reference-images/088-bvlgari-man-in-black.jpg",
+          "089": "reference-images/089-ysl-mon-paris.jpg",
+          "090": "reference-images/090-dior-poison-girl.jpg",
+          "091": "reference-images/091-azzaro-chrome.jpg",
+          "093": "reference-images/093-creed-aventus-for-her.jpg",
+          "094": "reference-images/094-dior-sauvage.jpg",
+          "095": "reference-images/095-burberry-burberry-women.jpg",
+          "096": "reference-images/096-chanel-gabrielle.jpg",
+          "097": "reference-images/097-ferragamo-amo.jpg",
+          "098": "reference-images/098-dior-joy.jpg",
+          "099": "reference-images/099-tom-ford-mandarino-di-amalfi.jpg",
+          "100": "reference-images/100-montale-white-aoud.jpg",
+          "101": "reference-images/101-d-g-velvet-amber-skin.jpg",
+          "102": "reference-images/102-d-g-velvet-amber-sun.jpg",
+          "105": "reference-images/105-montale-intense-cafe.jpg",
+          "106": "reference-images/106-tom-ford-fucking-fabulous.jpg",
+          "109": "reference-images/109-dior-j-adore-l-or.jpg",
+          "110": "reference-images/110-tiziana-terenzi-kirke.jpg",
+          "111": "reference-images/111-tom-ford-lost-cherry.jpg",
+          "112": "reference-images/112-tom-ford-neroli-portofino.jpg",
+          "113": "reference-images/113-louis-vuitton-sur-la-route.jpg",
+          "114": "reference-images/114-louis-vuitton-ombre-nomade.jpg",
+          "115": "reference-images/115-lancome-idole.jpg",
+          "116": "reference-images/116-cacharel-yes-i-am.jpg",
+          "117": "reference-images/117-tom-ford-tobacco-vanille.jpg",
+          "118": "reference-images/118-maison-f-kurkdjian-baccarat-rouge-540.jpg",
+          "119": "reference-images/119-jpg-scandal.jpg",
+          "120": "reference-images/120-guerlain-la-petite-robe-noire.jpg",
+          "121": "reference-images/121-givenchy-l-interdit.jpg",
+          "122": "reference-images/122-ysl-libre.jpg",
+          "123": "reference-images/123-kilian-good-girl-gone-bad.jpg",
+          "124": "reference-images/124-morph-zeta.jpg",
+          "125": "reference-images/125-tom-ford-sole-di-positano-acqua.jpg",
+          "126": "reference-images/126-tom-ford-soleil-blanc.jpg",
+          "127": "reference-images/127-tom-ford-oud-wood.jpg",
+          "128": "reference-images/128-tom-ford-vanille-fatale.jpg",
+          "129": "reference-images/129-xerjoff-erba-pura.jpg",
+          "130": "reference-images/130-orto-parisi-megamare.jpg",
+          "131": "reference-images/131-carolina-herrera-good-girl.jpg",
+          "132": "reference-images/132-armani-my-way.jpg",
+          "133": "reference-images/133-prada-prada-paradoxe.jpg",
+          "134": "reference-images/134-tom-ford-bitter-peach.jpg",
+          "135": "reference-images/135-dior-bois-d-argent.jpg",
+          "136": "reference-images/136-dior-dior-homme-intense.jpg",
+          "137": "reference-images/137-xerjoff-xj-1861-naxos.jpg",
+          "138": "reference-images/138-ojar-wood-whisper.jpg",
+          "139": "reference-images/139-louis-vuitton-les-sables-roses.jpg",
+          "140": "reference-images/140-versace-eros.jpg",
+          "141": "reference-images/141-the-spirit-of-dubai-turath.jpg",
+          "142": "reference-images/142-tom-ford-ombre-leather.jpg",
+          "143": "reference-images/143-matiere-premiere-vanilla-powder.jpg",
+          "144": "reference-images/144-giardini-di-toscana-bianco-latte.jpg",
+          "145": "reference-images/145-d-g-devotion.jpg",
+          "205": "reference-images/205-hugo-boss-hugo.jpg",
+          "213": "reference-images/213-gucci-guilty.jpg",
+          "217": "reference-images/217-gucci-guilty.jpg",
+          "241": "reference-images/241-chloe-chloe.jpg",
+          "243": "reference-images/243-chloe-love-chloe.jpg",
+          "246": "reference-images/246-calvin-klein-ck-one.jpg",
+          "250": "reference-images/250-burberry-burberry-for-men.jpg",
+          "265": "reference-images/265-hugo-boss-the-scent.jpg",
+          "277": "reference-images/277-gucci-flora.jpg",
+          "283": "reference-images/283-roberto-cavalli-uomo.jpg",
+          "292": "reference-images/292-burberry-mr-burberry.jpg",
+          "CRM": "reference-images/CRM-chogan-perfumed-body-cream.jpg",
+          "GEL-1": "reference-images/GEL-1-chogan-perfumed-shower-gel.jpg",
+          "GEL-2": "reference-images/GEL-2-chogan-perfumed-shower-gel-plus.jpg",
+          "GEL-3": "reference-images/GEL-3-chogan-perfumed-shower-gel-luxury.jpg",
+          "OIL": "reference-images/OIL-chogan-perfumed-sweet-almond-oil.jpg"
+    };
+
+    const products = [
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'006', name:'Opium', brand:'Yves Saint Laurent'},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'007', name:"J'adore", brand:'Dior', popular:true},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'010', name:'Alien', brand:'Thierry Mugler', popular:true},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'011', name:'Light Blue', brand:'Dolce & Gabbana'},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'213', name:'Guilty', brand:'Gucci'},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'014', name:'Manifesto', brand:'Yves Saint Laurent'},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'019', name:'Lady Million', brand:'Paco Rabanne', popular:true},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'023', name:'Hypnotic Poison', brand:'Dior', popular:true},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'024', name:'Chanel N°5', brand:'Chanel'},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'025', name:'For Her', brand:'Narciso Rodriguez'},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'026', name:'Flower', brand:'Kenzo'},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'027', name:'Tresor', brand:'Lancôme'},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'028', name:'Angel', brand:'Thierry Mugler'},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'029', name:"L'eau d'Issey", brand:'Issey Miyake'},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'039', name:'Miss Dior Cherie', brand:'Dior'},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'040', name:'Hypnose', brand:'Lancôme'},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'241', name:'Chloe', brand:'Chloé'},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'042', name:'La Vie Est Belle', brand:'Lancôme', popular:true},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'243', name:'Love Chloe', brand:'Chloé'},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'047', name:'Crystal Noir', brand:'Versace'},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'049', name:'Dolce', brand:'Dolce & Gabbana'},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'051', name:'Coco Mademoiselle', brand:'Chanel', popular:true},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'053', name:'Narciso', brand:'Narciso Rodriguez'},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'055', name:'Black Opium', brand:'Yves Saint Laurent', popular:true},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'056', name:'Ange ou Demon', brand:'Givenchy'},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'057', name:'Omnia Amethyste', brand:'Bulgari'},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'063', name:'Hugo', brand:'Hugo Boss'},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'064', name:'Omnia Indian Garnet', brand:'Bulgari'},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'067', name:'Olympea', brand:'Paco Rabanne'},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'070', name:'The One', brand:'Dolce & Gabbana'},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'071', name:'Allure', brand:'Chanel'},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'076', name:'Acqua di Gioia', brand:'Armani'},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'277', name:'Flora', brand:'Gucci'},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'080', name:'Si', brand:'Armani', popular:true},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'081', name:'Classique Essence', brand:'Jean Paul Gaultier'},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'082', name:'Signorina', brand:'Ferragamo'},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'085', name:'Chance', brand:'Chanel'},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'089', name:'Mon Paris', brand:'Yves Saint Laurent'},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'090', name:'Poison Girl', brand:'Dior'},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'095', name:'Burberry Women', brand:'Burberry'},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'096', name:'Gabrielle', brand:'Chanel'},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'097', name:'Amo', brand:'Ferragamo'},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'098', name:'Joy', brand:'Dior'},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'115', name:'Idole', brand:'Lancôme'},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'116', name:'Yes I Am', brand:'Cacharel'},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'119', name:'Scandal', brand:'Jean Paul Gaultier', popular:true},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'120', name:'La Petite Robe Noire', brand:'Guerlain'},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'121', name:"L'Interdit", brand:'Givenchy', popular:true},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'133', name:'Prada Paradoxe', brand:'Prada'},
+      {section:'Women perfumes inspired by', group:'Women', accent:'#d12f8a', no:'145', name:'Devotion', brand:'Dolce & Gabbana'},
+
+      {section:'Men perfumes inspired by', group:'Men', accent:'#1877a6', no:'001', name:'One Million', brand:'Paco Rabanne', popular:true},
+      {section:'Men perfumes inspired by', group:'Men', accent:'#1877a6', no:'002', name:'Acqua di Gio', brand:'Armani', popular:true},
+      {section:'Men perfumes inspired by', group:'Men', accent:'#1877a6', no:'003', name:'Fahrenheit', brand:'Dior', popular:true},
+      {section:'Men perfumes inspired by', group:'Men', accent:'#1877a6', no:'004', name:'The One', brand:'Dolce & Gabbana'},
+      {section:'Men perfumes inspired by', group:'Men', accent:'#1877a6', no:'205', name:'Hugo', brand:'Hugo Boss', popular:true},
+      {section:'Men perfumes inspired by', group:'Men', accent:'#1877a6', no:'012', name:'Eau Sauvage', brand:'Dior'},
+      {section:'Men perfumes inspired by', group:'Men', accent:'#1877a6', no:'015', name:'Roma Uomo', brand:'Laura Biagiotti'},
+      {section:'Men perfumes inspired by', group:'Men', accent:'#1877a6', no:'016', name:'Le Male', brand:'Jean Paul Gaultier', popular:true},
+      {section:'Men perfumes inspired by', group:'Men', accent:'#1877a6', no:'217', name:'Guilty', brand:'Gucci'},
+      {section:'Men perfumes inspired by', group:'Men', accent:'#1877a6', no:'018', name:'Declaration', brand:'Cartier'},
+      {section:'Men perfumes inspired by', group:'Men', accent:'#1877a6', no:'020', name:"La Nuit de l'Homme", brand:'Yves Saint Laurent', popular:true},
+      {section:'Men perfumes inspired by', group:'Men', accent:'#1877a6', no:'021', name:'Light Blue', brand:'Dolce & Gabbana'},
+      {section:'Men perfumes inspired by', group:'Men', accent:'#1877a6', no:'022', name:"Terre d'Hermes", brand:'Hermès'},
+      {section:'Men perfumes inspired by', group:'Men', accent:'#1877a6', no:'030', name:'Black XS', brand:'Paco Rabanne'},
+      {section:'Men perfumes inspired by', group:'Men', accent:'#1877a6', no:'032', name:'Spice Bomb', brand:'Viktor & Rolf'},
+      {section:'Men perfumes inspired by', group:'Men', accent:'#1877a6', no:'033', name:'Black Code', brand:'Armani', popular:true},
+      {section:'Men perfumes inspired by', group:'Men', accent:'#1877a6', no:'037', name:'Man', brand:'Bulgari'},
+      {section:'Men perfumes inspired by', group:'Men', accent:'#1877a6', no:'038', name:'Bleu', brand:'Chanel'},
+      {section:'Men perfumes inspired by', group:'Men', accent:'#1877a6', no:'048', name:'Allure Homme', brand:'Chanel'},
+      {section:'Men perfumes inspired by', group:'Men', accent:'#1877a6', no:'250', name:'Burberry for Men', brand:'Burberry'},
+      {section:'Men perfumes inspired by', group:'Men', accent:'#1877a6', no:'052', name:'Pasha', brand:'Cartier'},
+      {section:'Men perfumes inspired by', group:'Men', accent:'#1877a6', no:'061', name:'Invictus', brand:'Paco Rabanne', popular:true},
+      {section:'Men perfumes inspired by', group:'Men', accent:'#1877a6', no:'062', name:'Intenso', brand:'Dolce & Gabbana'},
+      {section:'Men perfumes inspired by', group:'Men', accent:'#1877a6', no:'265', name:'The Scent', brand:'Hugo Boss'},
+      {section:'Men perfumes inspired by', group:'Men', accent:'#1877a6', no:'069', name:'Acqua di Sale', brand:'Profumum Roma'},
+      {section:'Men perfumes inspired by', group:'Men', accent:'#1877a6', no:'079', name:'Myslf', brand:'Yves Saint Laurent'},
+      {section:'Men perfumes inspired by', group:'Men', accent:'#1877a6', no:'283', name:'Uomo', brand:'Roberto Cavalli'},
+      {section:'Men perfumes inspired by', group:'Men', accent:'#1877a6', no:'084', name:'Dylan Blue', brand:'Versace'},
+      {section:'Men perfumes inspired by', group:'Men', accent:'#1877a6', no:'086', name:'Legend', brand:'Mont Blanc'},
+      {section:'Men perfumes inspired by', group:'Men', accent:'#1877a6', no:'087', name:'Wanted', brand:'Azzaro'},
+      {section:'Men perfumes inspired by', group:'Men', accent:'#1877a6', no:'088', name:'Man in Black', brand:'Bulgari'},
+      {section:'Men perfumes inspired by', group:'Men', accent:'#1877a6', no:'091', name:'Chrome', brand:'Azzaro'},
+      {section:'Men perfumes inspired by', group:'Men', accent:'#1877a6', no:'292', name:'Mr. Burberry', brand:'Burberry'},
+      {section:'Men perfumes inspired by', group:'Men', accent:'#1877a6', no:'140', name:'Eros', brand:'Versace'},
+
+      {section:'Unisex perfumes inspired by', group:'Unisex', accent:'#208261', no:'246', name:'CK One', brand:'Calvin Klein'},
+      {section:'Unisex perfumes inspired by', group:'Unisex', accent:'#208261', no:'054', name:'Black Orchid', brand:'Tom Ford'},
+      {section:'Unisex perfumes inspired by', group:'Unisex', accent:'#208261', no:'072', name:'Patchouli', brand:'Reminiscence'},
+      {section:'Unisex perfumes inspired by', group:'Unisex', accent:'#208261', no:'100', name:'White Aoud', brand:'Montale'},
+      {section:'Unisex perfumes inspired by', group:'Unisex', accent:'#208261', no:'105', name:'Intense Cafe', brand:'Montale', popular:true},
+
+      {section:'Premium 70 ml women perfumes inspired by', group:'Premium', accent:'#a66b15', no:'093', name:'Aventus for Her', brand:'Creed', price:'57 EUR'},
+      {section:'Premium 70 ml women perfumes inspired by', group:'Premium', accent:'#a66b15', no:'122', name:'Libre', brand:'Yves Saint Laurent', price:'48 EUR'},
+      {section:'Premium 70 ml women perfumes inspired by', group:'Premium', accent:'#a66b15', no:'131', name:'Good Girl', brand:'Carolina Herrera', price:'48 EUR'},
+      {section:'Premium 70 ml women perfumes inspired by', group:'Premium', accent:'#a66b15', no:'132', name:'My Way', brand:'Armani', price:'45 EUR'},
+      {section:'Premium 70 ml men perfumes inspired by', group:'Premium', accent:'#a66b15', no:'068', name:'Aventus', brand:'Creed', price:'57 EUR', popular:true},
+      {section:'Premium 70 ml men perfumes inspired by', group:'Premium', accent:'#a66b15', no:'094', name:'Sauvage', brand:'Dior', price:'48 EUR', popular:true},
+      {section:'Premium 70 ml men perfumes inspired by', group:'Premium', accent:'#a66b15', no:'113', name:'Sur la Route', brand:'Louis Vuitton', price:'57 EUR'},
+      {section:'Premium 70 ml men perfumes inspired by', group:'Premium', accent:'#a66b15', no:'136', name:'Dior Homme Intense', brand:'Dior', price:'45 EUR'},
+      {section:'Premium 70 ml unisex perfumes inspired by', group:'Premium', accent:'#a66b15', no:'044', name:'Silver Mountain', brand:'Creed', price:'48 EUR'},
+      {section:'Premium 70 ml unisex perfumes inspired by', group:'Premium', accent:'#a66b15', no:'073', name:'Himalaya', brand:'Creed', price:'48 EUR'},
+      {section:'Premium 70 ml unisex perfumes inspired by', group:'Premium', accent:'#a66b15', no:'099', name:'Mandarino di Amalfi', brand:'Tom Ford', price:'45 EUR'},
+      {section:'Premium 70 ml unisex perfumes inspired by', group:'Premium', accent:'#a66b15', no:'110', name:'Kirke', brand:'Tiziana Terenzi', price:'48 EUR'},
+      {section:'Premium 70 ml unisex perfumes inspired by', group:'Premium', accent:'#a66b15', no:'114', name:'Ombre Nomade', brand:'Louis Vuitton', price:'48 EUR'},
+      {section:'Premium 70 ml unisex perfumes inspired by', group:'Premium', accent:'#a66b15', no:'135', name:"Bois d'Argent", brand:'Dior', price:'57 EUR'},
+      {section:'Premium 70 ml unisex perfumes inspired by', group:'Premium', accent:'#a66b15', no:'142', name:'Ombre Leather', brand:'Tom Ford', price:'57 EUR'},
+
+      {section:'Kids perfumes', group:'Kids', accent:'#579cc9', no:'045', name:'Boy', brand:'Kids', price:'29 EUR / 30 ml'},
+      {section:'Kids perfumes', group:'Kids', accent:'#d978aa', no:'058', name:'Girl', brand:'Kids', price:'29 EUR / 30 ml'},
+      {section:'Kids perfumes', group:'Kids', accent:'#d9b43d', no:'059', name:'Baby', brand:'Kids', price:'29 EUR / 30 ml'},
+
+      {section:'Luxury 50 ml women perfumes inspired by', group:'Luxury', accent:'#b64242', no:'109', name:"J'adore L'Or", brand:'Dior', price:'52 EUR'},
+      {section:'Luxury 50 ml women perfumes inspired by', group:'Luxury', accent:'#b64242', no:'123', name:'Good Girl Gone Bad', brand:'Kilian', price:'52 EUR'},
+      {section:'Luxury 50 ml men perfumes inspired by', group:'Luxury', accent:'#b64242', no:'074', name:'Black Afgano', brand:'Nasomatto', price:'52 EUR'},
+      {section:'Luxury 50 ml men perfumes inspired by', group:'Luxury', accent:'#b64242', no:'075', name:'X for Men', brand:'Clive Christian', price:'52 EUR'},
+      {section:'Luxury 50 ml unisex perfumes inspired by', group:'Luxury', accent:'#b64242', no:'101', name:'Velvet Amber Skin', brand:'Dolce & Gabbana', price:'52 EUR'},
+      {section:'Luxury 50 ml unisex perfumes inspired by', group:'Luxury', accent:'#b64242', no:'102', name:'Velvet Amber Sun', brand:'Dolce & Gabbana', price:'52 EUR'},
+      {section:'Luxury 50 ml unisex perfumes inspired by', group:'Luxury', accent:'#b64242', no:'106', name:'Fucking Fabulous', brand:'Tom Ford', price:'52 EUR'},
+      {section:'Luxury 50 ml unisex perfumes inspired by', group:'Luxury', accent:'#b64242', no:'111', name:'Lost Cherry', brand:'Tom Ford', price:'52 EUR', popular:true},
+      {section:'Luxury 50 ml unisex perfumes inspired by', group:'Luxury', accent:'#b64242', no:'112', name:'Neroli Portofino', brand:'Tom Ford', price:'52 EUR'},
+      {section:'Luxury 50 ml unisex perfumes inspired by', group:'Luxury', accent:'#b64242', no:'117', name:'Tobacco Vanille', brand:'Tom Ford', price:'52 EUR'},
+      {section:'Luxury 50 ml unisex perfumes inspired by', group:'Luxury', accent:'#b64242', no:'118', name:'Baccarat Rouge 540', brand:'Maison Francis Kurkdjian', price:'52 EUR', popular:true},
+      {section:'Luxury 50 ml unisex perfumes inspired by', group:'Luxury', accent:'#b64242', no:'124', name:'Zeta', brand:'Morph', price:'52 EUR'},
+      {section:'Luxury 50 ml unisex perfumes inspired by', group:'Luxury', accent:'#b64242', no:'125', name:'Sole di Positano Acqua', brand:'Tom Ford', price:'52 EUR'},
+      {section:'Luxury 50 ml unisex perfumes inspired by', group:'Luxury', accent:'#b64242', no:'126', name:'Soleil Blanc', brand:'Tom Ford', price:'52 EUR'},
+      {section:'Luxury 50 ml unisex perfumes inspired by', group:'Luxury', accent:'#b64242', no:'127', name:'Oud Wood', brand:'Tom Ford', price:'52 EUR'},
+      {section:'Luxury 50 ml unisex perfumes inspired by', group:'Luxury', accent:'#b64242', no:'128', name:'Vanille Fatale', brand:'Tom Ford', price:'52 EUR'},
+      {section:'Luxury 50 ml unisex perfumes inspired by', group:'Luxury', accent:'#b64242', no:'129', name:'Erba Pura', brand:'Xerjoff', price:'52 EUR', popular:true},
+      {section:'Luxury 50 ml unisex perfumes inspired by', group:'Luxury', accent:'#b64242', no:'130', name:'Megamare', brand:'Orto Parisi', price:'52 EUR', popular:true},
+      {section:'Luxury 50 ml unisex perfumes inspired by', group:'Luxury', accent:'#b64242', no:'134', name:'Bitter Peach', brand:'Tom Ford', price:'52 EUR', popular:true},
+      {section:'Luxury 50 ml unisex perfumes inspired by', group:'Luxury', accent:'#b64242', no:'137', name:'XJ 1861 Naxos', brand:'Xerjoff', price:'52 EUR'},
+      {section:'Luxury 50 ml unisex perfumes inspired by', group:'Luxury', accent:'#b64242', no:'138', name:'Wood Whisper', brand:'Ojar', price:'52 EUR'},
+      {section:'Luxury 50 ml unisex perfumes inspired by', group:'Luxury', accent:'#b64242', no:'139', name:'Les Sables Roses', brand:'Louis Vuitton', price:'52 EUR'},
+      {section:'Luxury 50 ml unisex perfumes inspired by', group:'Luxury', accent:'#b64242', no:'141', name:'Turath', brand:'The Spirit of Dubai', price:'52 EUR'},
+      {section:'Luxury 50 ml unisex perfumes inspired by', group:'Luxury', accent:'#b64242', no:'143', name:'Vanilla Powder', brand:'Matiere Premiere', price:'52 EUR'},
+      {section:'Luxury 50 ml unisex perfumes inspired by', group:'Luxury', accent:'#b64242', no:'144', name:'Bianco Latte', brand:'Giardini di Toscana', price:'52 EUR'}
+    ];
+
+    const bodyProducts = [
+      {section:'Body care products', group:'Body Care', accent:'#586a78', no:'GEL-1', name:'Perfumed Shower Gel', brand:'Chogan', type:'Body care', size:'250 ml', price:'15.90 EUR'},
+      {section:'Body care products', group:'Body Care', accent:'#586a78', no:'GEL-2', name:'Perfumed Shower Gel Plus', brand:'Chogan', type:'Body care', size:'250 ml', price:'18.90 EUR'},
+      {section:'Body care products', group:'Body Care', accent:'#586a78', no:'GEL-3', name:'Perfumed Shower Gel Luxury', brand:'Chogan', type:'Body care', size:'250 ml', price:'24.90 EUR'},
+      {section:'Body care products', group:'Body Care', accent:'#586a78', no:'CRM', name:'Perfumed Body Cream', brand:'Chogan', type:'Body care', size:'150 ml', price:'17.90 EUR'},
+      {section:'Body care products', group:'Body Care', accent:'#586a78', no:'OIL', name:'Perfumed Sweet Almond Oil', brand:'Chogan', type:'Body care', size:'100 ml', price:'23.90 EUR'}
+    ];
+
+    const catalogueItems = [
+      ...products.map(item => {
+        const lowerSection = item.section.toLowerCase();
+        const audience = lowerSection.includes('women') ? 'Women' : lowerSection.includes('men') ? 'Men' : lowerSection.includes('unisex') ? 'Unisex' : item.group;
+        const tier = item.group === 'Premium' ? 'Premium' : item.group === 'Luxury' ? 'Luxury' : item.group === 'Kids' ? 'Kids' : 'Standard';
+        const section = audience === 'Kids' ? 'Kids perfumes' : `${audience} perfumes`;
+        const image = referenceImages[item.no];
+
+        if (item.group === 'Kids') {
+          return { ...item, image, audience, tier, group: audience, section, type: 'Kids perfume', size: '30 ml', price: '29 EUR', options: [{ label: '30 ml', size: '30 ml', price: '29 EUR' }] };
+        }
+        if (item.group === 'Premium') {
+          return { ...item, image, audience, tier, group: audience, section, type: 'Premium perfume', size: '70 ml', options: [{ label: `70 ml - ${item.price}`, size: '70 ml', price: item.price }] };
+        }
+        if (item.group === 'Luxury') {
+          const price = '52,00 €';
+          return { ...item, image, audience, tier, group: audience, section, type: 'Luxury perfume', size: '50 ml', price, options: [{ label: '50 ml - 52,00 €', size: '50 ml', price }] };
+        }
+        return {
+          ...item,
+          image,
+          audience,
+          tier,
+          group: audience,
+          section,
+          type: 'Perfume',
+          size: '70 ml',
+          price: '35,00 €',
+          options: [
+            { label: '70 ml - 35,00 €', size: '70 ml', price: '35,00 €' },
+            { label: '30 ml - 18,00 €', size: '30 ml', price: '18,00 €' },
+          ]
+        };
+      }),
+      ...bodyProducts.map(item => ({ ...item, image: referenceImages[item.no], audience: 'Body Care', tier: 'Body Care', options: [{ label: `${item.size} - ${item.price}`, size: item.size, price: item.price }] }))
+    ];
+
+    const catalogue = document.getElementById('catalogue');
+    const empty = document.getElementById('empty');
+    const search = document.getElementById('search');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const brandFilter = document.getElementById('brandFilter');
+    const sideNavList = document.getElementById('sideNavList');
+    const viewButtons = [...document.querySelectorAll('[data-view]')];
+    let currentView = 'perfumes';
+    let tierFilter = 'all';
+
+    const categoryLabels = {
+      all: 'All categories',
+      Women: 'Women',
+      Men: 'Men',
+      Unisex: 'Unisex',
+      Kids: 'Kids',
+      'Body Care': 'Body Care'
+    };
+
+    const categoryColors = {
+      all: '#29364a',
+      Women: '#c85a95',
+      Men: '#3f83a8',
+      Unisex: '#4f9a7d',
+      Premium: '#b58a3b',
+      Luxury: '#a85a5a',
+      Kids: '#7a8a46',
+      'Body Care': '#6b7885'
+    };
+
+    function viewItems() {
+      return catalogueItems.filter(item => currentView === 'body' ? item.group === 'Body Care' : item.group !== 'Body Care');
+    }
+
+    function fillSelect(select, options, selectedValue) {
+      select.innerHTML = options.map(option => `<option value="${option.value}">${option.label}</option>`).join('');
+      select.value = selectedValue;
+    }
+
+    function sideButton(label, audience, tier = 'all') {
+      const selectedAudience = categoryFilter.value || 'all';
+      const active = selectedAudience === audience && tierFilter === tier;
+      return `
+        <button
+          type="button"
+          class="${active ? 'active' : ''}"
+          data-nav-audience="${audience}"
+          data-nav-tier="${tier}"
+          style="--nav-color:${categoryColors[audience] || '#29364a'}"
+        >${label}</button>
+      `;
+    }
+
+    function updateSideNav() {
+      if (currentView === 'body') {
+        sideNavList.innerHTML = sideButton('All body care', 'all');
+        return;
+      }
+
+      sideNavList.innerHTML = `
+        ${sideButton('All perfumes', 'all')}
+        <div class="side-heading">Women</div>
+        ${sideButton('All women', 'Women')}
+        ${sideButton('Standard', 'Women', 'Standard')}
+        ${sideButton('Premium', 'Women', 'Premium')}
+        ${sideButton('Luxury', 'Women', 'Luxury')}
+        <div class="side-heading">Men</div>
+        ${sideButton('All men', 'Men')}
+        ${sideButton('Standard', 'Men', 'Standard')}
+        ${sideButton('Premium', 'Men', 'Premium')}
+        ${sideButton('Luxury', 'Men', 'Luxury')}
+        <div class="side-heading">Unisex</div>
+        ${sideButton('All unisex', 'Unisex')}
+        ${sideButton('Standard', 'Unisex', 'Standard')}
+        ${sideButton('Premium', 'Unisex', 'Premium')}
+        ${sideButton('Luxury', 'Unisex', 'Luxury')}
+        <div class="side-heading">Kids</div>
+        ${sideButton('Kids', 'Kids')}
+      `;
+    }
+
+    function updateFilterOptions() {
+      const items = viewItems();
+      const categories = ['all', ...new Set(items.map(item => item.group))];
+      const brands = ['all', ...new Set(items.map(item => item.brand).sort((a, b) => a.localeCompare(b)))];
+
+      if (!categories.includes(categoryFilter.value)) categoryFilter.value = 'all';
+      if (!brands.includes(brandFilter.value)) brandFilter.value = 'all';
+
+      fillSelect(
+        categoryFilter,
+        categories.map(value => ({ value, label: categoryLabels[value] || value })),
+        categoryFilter.value || 'all'
+      );
+
+      fillSelect(
+        brandFilter,
+        brands.map(value => ({ value, label: value === 'all' ? 'All brands' : value })),
+        brandFilter.value || 'all'
+      );
+
+      updateSideNav();
+    }
+
+    function normalize(value) {
+      return value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    }
+
+    function render() {
+      const query = normalize(search.value.trim());
+      const category = categoryFilter.value || 'all';
+      const brand = brandFilter.value || 'all';
+      const filtered = viewItems().filter(item => {
+        const haystack = normalize([item.no, item.name, item.brand, item.group, item.section, item.type, item.tier, item.size, item.price].join(' '));
+        const matchesSearch = !query || haystack.includes(query);
+        const matchesCategory = category === 'all' || item.group === category;
+        const matchesTier = tierFilter === 'all' || item.tier === tierFilter;
+        const matchesBrand = brand === 'all' || item.brand === brand;
+        return matchesSearch && matchesCategory && matchesTier && matchesBrand;
+      });
+
+      const sections = [...new Set(filtered.map(item => item.section))];
+      catalogue.innerHTML = sections.map(section => {
+        const items = filtered.filter(item => item.section === section);
+        const sectionClass = items[0].group === 'Women' ? 'femme' : items[0].group === 'Men' ? 'homme' : items[0].group === 'Unisex' ? 'mixte' : items[0].group === 'Body Care' ? 'body' : 'luxe';
+        return `
+          <section>
+            <div class="section-title ${sectionClass}">
+              <h2>${section}</h2>
+              <span>${items.length} reference${items.length > 1 ? 's' : ''}</span>
+            </div>
+            <div class="grid">
+              ${items.map(item => `
+                <article class="card" style="--accent:${item.accent}">
+                  <div class="product-photo" aria-hidden="true">
+                          ${item.image ? `<img class="reference-img" src="${item.image}" alt="${item.brand} ${item.name} reference image" loading="eager" onerror="this.replaceWith(Object.assign(document.createElement('div'), {className: 'bottle'}))">` : `<div class="bottle"></div>`}
+                  </div>
+                  <div class="product">
+                    <div class="product-head">
+                      <p class="name">${item.name}</p>
+                      <span class="num">${item.no}</span>
+                    </div>
+                    <p class="maker"><strong>${item.group === 'Body Care' ? 'Product line' : 'Inspired by'}</strong>${item.brand}</p>
+                    <div class="details">
+                      <div class="detail"><span>Type</span><span>${item.type}</span></div>
+                      <div class="detail">
+                        <span>Option</span>
+                        <select class="option-select" aria-label="Choose size and price for ${item.name}" onchange="this.closest('.card').querySelector('[data-card-price]').textContent=this.selectedOptions[0].dataset.price;">
+                          ${item.options.map(option => `<option data-size="${option.size}" data-price="${option.price}">${option.label}</option>`).join('')}
+                        </select>
+                      </div>
+                      <div class="detail"><span>Price</span><span data-card-price>${item.price}</span></div>
+                    </div>
+                    <div class="meta">
+                      ${item.popular ? `<span class="pill"><span class="note-dot" aria-hidden="true"></span>&nbsp;Popular</span>` : ''}
+                    </div>
+                  </div>
+                </article>
+              `).join('')}
+            </div>
+          </section>
+        `;
+      }).join('');
+
+      empty.style.display = filtered.length ? 'none' : 'block';
+      document.getElementById('totalCount').textContent = filtered.length;
+      updateSideNav();
+    }
+
+    search.addEventListener('input', render);
+    categoryFilter.addEventListener('change', () => {
+      tierFilter = 'all';
+      render();
+    });
+    brandFilter.addEventListener('change', render);
+    sideNavList.addEventListener('click', event => {
+      const button = event.target.closest('[data-nav-audience]');
+      if (!button) return;
+      categoryFilter.value = button.dataset.navAudience;
+      tierFilter = button.dataset.navTier || 'all';
+      render();
+    });
+    viewButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        viewButtons.forEach(item => item.classList.remove('active'));
+        button.classList.add('active');
+        currentView = button.dataset.view;
+        categoryFilter.value = 'all';
+        brandFilter.value = 'all';
+        tierFilter = 'all';
+        updateFilterOptions();
+        render();
+      });
+    });
+
+    updateFilterOptions();
+    render();
+  </script>
+</body>
+</html>
