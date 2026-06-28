@@ -91,10 +91,7 @@
     }
 
     .catalogue-shell {
-      display: grid;
-      grid-template-columns: 180px minmax(0, 1fr);
-      gap: 16px;
-      align-items: start;
+      display: block;
     }
 
     .top-menu {
@@ -130,54 +127,6 @@
 
     .page-view[hidden] {
       display: none;
-    }
-
-    .side-nav {
-      position: sticky;
-      top: 118px;
-      display: grid;
-      gap: 8px;
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 12px;
-      box-shadow: var(--shadow);
-    }
-
-    .side-title {
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 900;
-      text-transform: uppercase;
-    }
-
-    .side-list {
-      display: grid;
-      gap: 6px;
-    }
-
-    .side-heading {
-      margin-top: 8px;
-      color: var(--ink);
-      font-size: 13px;
-      font-weight: 900;
-    }
-
-    .side-list button {
-      justify-content: start;
-      width: 100%;
-      min-height: 34px;
-      border-left: 4px solid var(--nav-color, transparent);
-      text-align: left;
-      font-size: 13px;
-      background: #fff;
-    }
-
-    .side-list button.active {
-      color: var(--ink);
-      border-color: var(--nav-color, #29364a);
-      border-left-color: var(--nav-color, #29364a);
-      background: #f6f8fa;
     }
 
     .selection-panel {
@@ -327,11 +276,22 @@
       z-index: 4;
     }
 
-    .store-tabs, .filter-row {
+    .store-tabs {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
       align-items: end;
+    }
+
+    .filter-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      align-items: end;
+    }
+
+    .search-field {
+      grid-column: 1 / -1;
     }
 
     .store-tabs {
@@ -684,9 +644,6 @@
       .tools { top: 0; }
       .summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-      .catalogue-shell { grid-template-columns: 1fr; }
-      .side-nav { position: static; }
-      .side-list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
     }
 
     @media (max-width: 560px) {
@@ -734,7 +691,7 @@
       }
       .filter-row {
         display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: 1fr;
         gap: 8px;
         align-items: end;
       }
@@ -742,7 +699,7 @@
         min-width: 0;
         flex: none;
       }
-      .field:first-child {
+      .search-field {
         grid-column: 1 / -1;
       }
       .field label {
@@ -765,20 +722,18 @@
       .section-title { align-items: start; flex-direction: column; }
       .tools { position: static; }
       button { flex: 1 1 auto; }
-      .side-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
     @media print {
       body { background: #fff; }
       .page { max-width: none; padding: 0; }
-      .tools, .side-nav { display: none; }
+      .tools { display: none; }
       .selection-panel { break-inside: avoid; }
       .add-btn, .selection-actions, .qty-row button, .remove-btn { display: none; }
       header, .intro, .notice, .summary div, .card {
         box-shadow: none;
       }
       header { grid-template-columns: 1fr; }
-      .catalogue-shell { grid-template-columns: 1fr; }
       .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
       .card { break-inside: avoid; }
     }
@@ -796,26 +751,26 @@
         <span class="result-count"><span id="totalCount">0</span> items</span>
       </div>
       <div id="filters" class="filter-row">
-        <div class="field">
+        <div class="field search-field">
           <label for="search">Search</label>
           <input id="search" class="search" type="search" placeholder="Number, fragrance or brand..." aria-label="Search">
         </div>
         <div class="field">
-          <label for="categoryFilter">Category</label>
-          <select id="categoryFilter" class="filter-select" aria-label="Category"></select>
+          <label for="categoryFilter">Categories</label>
+          <select id="categoryFilter" class="filter-select" aria-label="Categories"></select>
         </div>
         <div class="field">
-          <label for="brandFilter">Brand</label>
-          <select id="brandFilter" class="filter-select" aria-label="Brand"></select>
+          <label for="typeFilter">Type</label>
+          <select id="typeFilter" class="filter-select" aria-label="Type"></select>
+        </div>
+        <div class="field">
+          <label for="brandFilter">Brands</label>
+          <select id="brandFilter" class="filter-select" aria-label="Brands"></select>
         </div>
       </div>
     </div>
 
     <div id="browsePage" class="catalogue-shell page-view">
-      <aside class="side-nav" aria-label="Category navigation">
-        <div class="side-title">Categories</div>
-        <div id="sideNavList" class="side-list"></div>
-      </aside>
       <div>
         <div id="catalogue"></div>
         <div id="empty" class="empty">No items match this search.</div>
@@ -1180,8 +1135,8 @@
     const filters = document.getElementById('filters');
     const search = document.getElementById('search');
     const categoryFilter = document.getElementById('categoryFilter');
+    const typeFilter = document.getElementById('typeFilter');
     const brandFilter = document.getElementById('brandFilter');
-    const sideNavList = document.getElementById('sideNavList');
     const selectionList = document.getElementById('selectionList');
     const selectionCount = document.getElementById('selectionCount');
     const selectionTotal = document.getElementById('selectionTotal');
@@ -1192,7 +1147,6 @@
     const totalCount = document.getElementById('totalCount');
     let currentPage = 'perfumes';
     let currentView = 'perfumes';
-    let tierFilter = 'all';
     let selectedItems = [];
 
     const categoryLabels = {
@@ -1204,17 +1158,6 @@
       'Body Care': 'Body Care'
     };
 
-    const categoryColors = {
-      all: '#29364a',
-      Women: '#c85a95',
-      Men: '#3f83a8',
-      Unisex: '#4f9a7d',
-      Premium: '#b58a3b',
-      Luxury: '#a85a5a',
-      Kids: '#7a8a46',
-      'Body Care': '#6b7885'
-    };
-
     function viewItems() {
       return catalogueItems.filter(item => currentView === 'body' ? item.group === 'Body Care' : item.group !== 'Body Care');
     }
@@ -1224,54 +1167,15 @@
       select.value = selectedValue;
     }
 
-    function sideButton(label, audience, tier = 'all') {
-      const selectedAudience = categoryFilter.value || 'all';
-      const active = selectedAudience === audience && tierFilter === tier;
-      return `
-        <button
-          type="button"
-          class="${active ? 'active' : ''}"
-          data-nav-audience="${audience}"
-          data-nav-tier="${tier}"
-          style="--nav-color:${categoryColors[audience] || '#29364a'}"
-        >${label}</button>
-      `;
-    }
-
-    function updateSideNav() {
-      if (currentView === 'body') {
-        sideNavList.innerHTML = sideButton('All body care', 'all');
-        return;
-      }
-
-      sideNavList.innerHTML = `
-        ${sideButton('All perfumes', 'all')}
-        <div class="side-heading">Women</div>
-        ${sideButton('All women', 'Women')}
-        ${sideButton('Standard', 'Women', 'Standard')}
-        ${sideButton('Premium', 'Women', 'Premium')}
-        ${sideButton('Luxury', 'Women', 'Luxury')}
-        <div class="side-heading">Men</div>
-        ${sideButton('All men', 'Men')}
-        ${sideButton('Standard', 'Men', 'Standard')}
-        ${sideButton('Premium', 'Men', 'Premium')}
-        ${sideButton('Luxury', 'Men', 'Luxury')}
-        <div class="side-heading">Unisex</div>
-        ${sideButton('All unisex', 'Unisex')}
-        ${sideButton('Standard', 'Unisex', 'Standard')}
-        ${sideButton('Premium', 'Unisex', 'Premium')}
-        ${sideButton('Luxury', 'Unisex', 'Luxury')}
-        <div class="side-heading">Kids</div>
-        ${sideButton('Kids', 'Kids')}
-      `;
-    }
-
     function updateFilterOptions() {
       const items = viewItems();
       const categories = ['all', ...new Set(items.map(item => item.group))];
+      const typeOrder = ['Standard', 'Premium', 'Luxury', 'Kids', 'Body Care'];
+      const types = ['all', ...[...new Set(items.map(item => item.tier))].sort((a, b) => typeOrder.indexOf(a) - typeOrder.indexOf(b))];
       const brands = ['all', ...new Set(items.map(item => item.brand).sort((a, b) => a.localeCompare(b)))];
 
       if (!categories.includes(categoryFilter.value)) categoryFilter.value = 'all';
+      if (!types.includes(typeFilter.value)) typeFilter.value = 'all';
       if (!brands.includes(brandFilter.value)) brandFilter.value = 'all';
 
       fillSelect(
@@ -1281,12 +1185,17 @@
       );
 
       fillSelect(
+        typeFilter,
+        types.map(value => ({ value, label: value === 'all' ? 'All types' : value })),
+        typeFilter.value || 'all'
+      );
+
+      fillSelect(
         brandFilter,
         brands.map(value => ({ value, label: value === 'all' ? 'All brands' : value })),
         brandFilter.value || 'all'
       );
 
-      updateSideNav();
     }
 
     function normalize(value) {
@@ -1397,8 +1306,8 @@
       if (page === 'perfumes' || page === 'body') {
         currentView = page;
         categoryFilter.value = 'all';
+        typeFilter.value = 'all';
         brandFilter.value = 'all';
-        tierFilter = 'all';
         updateFilterOptions();
         render();
       } else {
@@ -1409,14 +1318,15 @@
     function render() {
       const query = normalize(search.value.trim());
       const category = categoryFilter.value || 'all';
+      const type = typeFilter.value || 'all';
       const brand = brandFilter.value || 'all';
       const filtered = viewItems().filter(item => {
         const haystack = normalize([item.no, item.name, item.brand, item.group, item.section, item.type, item.tier, item.size, item.price].join(' '));
         const matchesSearch = !query || haystack.includes(query);
         const matchesCategory = category === 'all' || item.group === category;
-        const matchesTier = tierFilter === 'all' || item.tier === tierFilter;
+        const matchesType = type === 'all' || item.tier === type;
         const matchesBrand = brand === 'all' || item.brand === brand;
-        return matchesSearch && matchesCategory && matchesTier && matchesBrand;
+        return matchesSearch && matchesCategory && matchesType && matchesBrand;
       });
 
       const sections = [...new Set(filtered.map(item => item.section))];
@@ -1465,14 +1375,11 @@
 
       empty.style.display = filtered.length ? 'none' : 'block';
       totalCount.textContent = filtered.length;
-      updateSideNav();
     }
 
     search.addEventListener('input', render);
-    categoryFilter.addEventListener('change', () => {
-      tierFilter = 'all';
-      render();
-    });
+    categoryFilter.addEventListener('change', render);
+    typeFilter.addEventListener('change', render);
     brandFilter.addEventListener('change', render);
     catalogue.addEventListener('click', event => {
       const button = event.target.closest('[data-add-item]');
@@ -1516,13 +1423,6 @@
         copySelection.textContent = 'Copied';
         setTimeout(() => { copySelection.textContent = 'Copy list'; }, 1200);
       }
-    });
-    sideNavList.addEventListener('click', event => {
-      const button = event.target.closest('[data-nav-audience]');
-      if (!button) return;
-      categoryFilter.value = button.dataset.navAudience;
-      tierFilter = button.dataset.navTier || 'all';
-      render();
     });
     menuButtons.forEach(button => {
       button.addEventListener('click', () => {
