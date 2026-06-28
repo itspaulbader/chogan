@@ -266,11 +266,11 @@
     }
 
     .tools {
-      margin: 18px 0;
-      padding: 14px;
+      margin: 14px 0 18px;
+      padding: 10px 12px;
       display: grid;
       grid-template-columns: 1fr;
-      gap: 12px;
+      gap: 9px;
       position: sticky;
       top: 0;
       z-index: 4;
@@ -285,19 +285,20 @@
 
     .filter-row {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 8px;
-      align-items: end;
+      gap: 9px;
     }
 
-    .search-field {
-      grid-column: 1 / -1;
+    .filter-primary {
+      display: grid;
+      grid-template-columns: minmax(280px, 1fr) auto auto;
+      gap: 8px;
+      align-items: center;
     }
 
     .store-tabs {
       justify-content: space-between;
       border-bottom: 1px solid var(--line);
-      padding-bottom: 12px;
+      padding-bottom: 8px;
     }
 
     .view-buttons {
@@ -315,28 +316,133 @@
 
     .field {
       display: grid;
-      gap: 5px;
-      min-width: 180px;
-      flex: 1 1 180px;
+      gap: 4px;
+      min-width: 0;
     }
 
     .field label {
       color: var(--muted);
-      font-size: 12px;
+      font-size: 10px;
       font-weight: 800;
       text-transform: uppercase;
     }
 
+    .search-field label { display: none; }
+
     .search, .filter-select {
       width: 100%;
-      min-height: 44px;
+      min-height: 38px;
       border: 1px solid var(--line);
       border-radius: 8px;
-      padding: 0 14px;
-      font-size: 16px;
+      padding: 0 11px;
+      font-size: 14px;
       color: var(--ink);
       background: #fff;
     }
+
+    .brand-filter {
+      position: relative;
+    }
+
+    .brand-filter summary {
+      min-width: 112px;
+      min-height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 0 34px 0 12px;
+      display: flex;
+      align-items: center;
+      background: #fff;
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      list-style: none;
+      position: relative;
+    }
+
+    .brand-filter summary::-webkit-details-marker { display: none; }
+    .brand-filter summary::after {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-right: 1.5px solid currentColor;
+      border-bottom: 1.5px solid currentColor;
+      transform: rotate(45deg);
+      position: absolute;
+      right: 13px;
+      top: 13px;
+    }
+
+    .brand-filter[open] summary::after { transform: rotate(225deg); top: 17px; }
+
+    .brand-filter .filter-select {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 5px);
+      z-index: 6;
+      width: 230px;
+      box-shadow: 0 10px 24px rgba(39, 52, 70, .12);
+    }
+
+    .clear-filters {
+      min-height: 38px;
+      border-color: transparent;
+      padding-inline: 8px;
+      color: #536174;
+      background: transparent;
+      font-size: 12px;
+    }
+
+    .clear-filters[hidden] { display: none; }
+
+    .filter-chip-groups {
+      display: grid;
+      gap: 6px;
+    }
+
+    .filter-chip-row {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+
+    .filter-chip-row + .filter-chip-row {
+      border-top: 1px solid #edf1f5;
+      padding-top: 6px;
+    }
+
+    .filter-chip {
+      min-height: 32px;
+      border-radius: 999px;
+      padding: 0 11px;
+      color: #4f5d70;
+      background: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .filter-chip:hover { border-color: #aeb9c6; }
+    .filter-chip.active {
+      border-color: #29364a;
+      color: #fff;
+      background: #29364a;
+    }
+
+    .filter-chip:disabled {
+      display: none;
+    }
+
+    .filter-summary {
+      min-height: 18px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .filter-summary[hidden] { display: none; }
 
     button {
       min-height: 38px;
@@ -421,9 +527,9 @@
       border: 1px solid var(--line);
       border-radius: 8px;
       padding: 12px;
-      min-height: 254px;
+      min-height: 248px;
       display: grid;
-      gap: 10px;
+      gap: 9px;
       align-content: start;
       position: relative;
       overflow: hidden;
@@ -499,15 +605,15 @@
     }
 
     .num {
-      min-width: 48px;
-      height: 34px;
+      min-width: 44px;
+      height: 30px;
       display: inline-grid;
       place-items: center;
       border-radius: 8px;
       color: #fff;
       background: #29364a;
       font-weight: 900;
-      font-size: 14px;
+      font-size: 13px;
     }
 
     .product { min-width: 0; }
@@ -539,6 +645,38 @@
       text-transform: uppercase;
       font-size: 12px;
       letter-spacing: 0;
+    }
+
+    .chogan-product {
+      margin: 7px 0 0;
+      color: #425064;
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .chogan-product strong {
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .card-status-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-top: 9px;
+    }
+
+    .new-layer-label {
+      color: #8a365f;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .purchase-row {
+      margin-top: 10px;
     }
 
     .meta {
@@ -612,46 +750,71 @@
       font-size: 11px;
     }
 
-    .note-panel {
+    .card-details {
       margin-top: 9px;
-      border-top: 1px solid #edf1f5;
-      padding-top: 7px;
+      border-top: 1px solid #e7ecf1;
       color: var(--muted);
       font-size: 11px;
     }
 
-    .note-panel summary { cursor: pointer; font-weight: 800; color: #425064; }
-    .note-panel p { margin: 5px 0 0; line-height: 1.35; }
-
-    .details {
-      display: grid;
-      gap: 6px;
-      margin-top: 10px;
-    }
-
-    .detail {
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
-      border-top: 1px solid #edf1f5;
-      padding-top: 6px;
+    .card-details summary {
+      cursor: pointer;
+      padding: 9px 1px 0;
+      color: #425064;
       font-size: 12px;
+      font-weight: 800;
+      list-style-position: outside;
     }
 
-    .detail span:first-child {
+    .card-details[open] summary { margin-bottom: 9px; }
+
+    .technical-details {
+      display: grid;
+      grid-template-columns: minmax(76px, auto) minmax(0, 1fr);
+      gap: 6px 10px;
+      margin: 0;
+    }
+
+    .technical-details dt {
       color: var(--muted);
       font-weight: 700;
     }
 
-    .detail span:last-child {
+    .technical-details dd {
+      margin: 0;
       color: var(--ink);
-      font-weight: 800;
-      text-align: right;
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    .detail-reasoning,
+    .pyramid {
+      margin-top: 10px;
+      border-top: 1px solid #edf1f5;
+      padding-top: 9px;
+      line-height: 1.45;
+    }
+
+    .detail-reasoning strong,
+    .pyramid h4 {
+      display: block;
+      margin: 0 0 5px;
+      color: #425064;
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+
+    .pyramid p { margin: 5px 0 0; }
+
+    .detail-link {
+      color: #315d82;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 2px;
     }
 
     .option-select {
       width: 100%;
-      min-height: 36px;
+      min-height: 38px;
       border: 1px solid var(--line);
       border-radius: 8px;
       background: #fff;
@@ -738,30 +901,48 @@
         font-size: 12px;
       }
       .filter-row {
-        display: grid;
-        grid-template-columns: 1fr;
         gap: 8px;
-        align-items: end;
       }
-      .field {
-        min-width: 0;
-        flex: none;
+      .filter-primary {
+        grid-template-columns: minmax(0, 1fr) auto;
       }
       .search-field {
         grid-column: 1 / -1;
       }
-      .field label {
-        font-size: 11px;
+      .brand-filter {
+        grid-column: 1;
+        justify-self: start;
+      }
+      .clear-filters {
+        grid-column: 2;
+        grid-row: 2;
+        justify-self: end;
+        min-height: 24px;
+        padding: 0;
+      }
+      .brand-filter summary {
+        min-width: 106px;
       }
       .search, .filter-select {
-        min-height: 40px;
+        min-height: 38px;
         padding: 0 10px;
-        font-size: 15px;
+        font-size: 14px;
       }
-      .filter-row > button {
-        grid-column: 1 / -1;
-        min-height: 40px;
+      .brand-filter .filter-select {
+        position: fixed;
+        left: 10px;
+        right: 10px;
+        top: auto;
+        width: calc(100% - 20px);
       }
+      .filter-chip-row {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 2px;
+        scrollbar-width: none;
+      }
+      .filter-chip-row::-webkit-scrollbar { display: none; }
+      .filter-chip { flex: 0 0 auto; min-height: 32px; }
       .summary, .price-list { grid-template-columns: 1fr; }
       .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .card { min-height: 232px; }
@@ -799,26 +980,41 @@
         <span class="result-count"><span id="totalCount">0</span> items</span>
       </div>
       <div id="filters" class="filter-row">
-        <div class="field search-field">
-          <label for="search">Search</label>
-          <input id="search" class="search" type="search" placeholder="Number, fragrance or brand..." aria-label="Search">
+        <div class="filter-primary">
+          <div class="field search-field">
+            <label for="search">Search</label>
+            <input id="search" class="search" type="search" placeholder="Search fragrance, brand or code..." aria-label="Search">
+          </div>
+          <details id="brandFilterMenu" class="brand-filter">
+            <summary id="brandFilterLabel">Brand</summary>
+            <select id="brandFilter" class="filter-select" aria-label="Brand"></select>
+          </details>
+          <button id="clearCatalogueFilters" class="clear-filters" type="button" hidden>Clear filters</button>
         </div>
-        <div class="field">
-          <label for="categoryFilter">Categories</label>
-          <select id="categoryFilter" class="filter-select" aria-label="Categories"></select>
+        <select id="categoryFilter" hidden aria-label="Category"></select>
+        <select id="statusFilter" hidden aria-label="Match confidence"></select>
+        <div class="filter-chip-groups">
+          <div id="categoryChips" class="filter-chip-row" aria-label="Categories">
+            <button class="filter-chip active" type="button" data-category="all" aria-pressed="true">All</button>
+            <button class="filter-chip" type="button" data-category="Women" aria-pressed="false">Women</button>
+            <button class="filter-chip" type="button" data-category="Men" aria-pressed="false">Men</button>
+            <button class="filter-chip" type="button" data-category="Unisex" aria-pressed="false">Unisex</button>
+            <button class="filter-chip" type="button" data-category="Premium" aria-pressed="false">Premium</button>
+            <button class="filter-chip" type="button" data-category="Luxury" aria-pressed="false">Luxury</button>
+            <button class="filter-chip" type="button" data-category="Kids" aria-pressed="false">Kids</button>
+            <button class="filter-chip" type="button" data-category="New" aria-pressed="false">New</button>
+          </div>
+          <div id="confidenceChips" class="filter-chip-row" aria-label="Match confidence">
+            <button class="filter-chip active" type="button" data-confidence="all" aria-pressed="true">All</button>
+            <button class="filter-chip" type="button" data-confidence="Confirmed" aria-pressed="false">Confirmed</button>
+            <button class="filter-chip" type="button" data-confidence="Very likely" aria-pressed="false">Very likely</button>
+            <button class="filter-chip" type="button" data-confidence="Probable" aria-pressed="false">Probable</button>
+            <button class="filter-chip" type="button" data-confidence="Possible" aria-pressed="false">Possible</button>
+            <button class="filter-chip" type="button" data-confidence="Original / no dupe" aria-pressed="false">Original</button>
+            <button class="filter-chip" type="button" data-confidence="Unknown" aria-pressed="false">Unknown</button>
+          </div>
         </div>
-        <div class="field">
-          <label for="typeFilter">Type</label>
-          <select id="typeFilter" class="filter-select" aria-label="Type"></select>
-        </div>
-        <div class="field">
-          <label for="brandFilter">Brands</label>
-          <select id="brandFilter" class="filter-select" aria-label="Brands"></select>
-        </div>
-        <div class="field">
-          <label for="statusFilter">Verification</label>
-          <select id="statusFilter" class="filter-select" aria-label="Verification status"></select>
-        </div>
+        <p id="filterSummary" class="filter-summary" hidden></p>
       </div>
     </div>
 
@@ -1217,9 +1413,16 @@
     const filters = document.getElementById('filters');
     const search = document.getElementById('search');
     const categoryFilter = document.getElementById('categoryFilter');
-    const typeFilter = document.getElementById('typeFilter');
     const brandFilter = document.getElementById('brandFilter');
     const statusFilter = document.getElementById('statusFilter');
+    const brandFilterMenu = document.getElementById('brandFilterMenu');
+    const brandFilterLabel = document.getElementById('brandFilterLabel');
+    const clearCatalogueFilters = document.getElementById('clearCatalogueFilters');
+    const filterSummary = document.getElementById('filterSummary');
+    const categoryChips = document.getElementById('categoryChips');
+    const confidenceChips = document.getElementById('confidenceChips');
+    const categoryChipButtons = [...categoryChips.querySelectorAll('[data-category]')];
+    const confidenceChipButtons = [...confidenceChips.querySelectorAll('[data-confidence]')];
     const selectionList = document.getElementById('selectionList');
     const selectionCount = document.getElementById('selectionCount');
     const selectionTotal = document.getElementById('selectionTotal');
@@ -1233,31 +1436,27 @@
     let selectedItems = [];
 
     const categoryLabels = {
-      all: 'All categories',
+      all: 'All',
       Women: 'Women',
       Men: 'Men',
       Unisex: 'Unisex',
       Kids: 'Kids',
-      New: 'New / Unverified',
+      New: 'New',
       'Body Care': 'Body Care'
     };
 
     const statusLabels = [
-      'Confirmed', 'Legacy code / current code found', 'Likely correct', 'Very likely',
-      'Probable', 'Possible', 'Needs review', 'Reference mismatch possible',
-      'Original / no dupe', 'Unknown', 'Legacy entry retained', 'New / Unverified'
+      'Confirmed', 'Very likely', 'Probable', 'Possible',
+      'Unknown', 'Original / no dupe'
     ];
 
-    function statusClass(value, confidence = '') {
-      if (value === 'Confirmed') return confidence === 'Confirmed' ? 'status-confirmed' : 'status-unknown';
-      if (value === 'Legacy code / current code found' || value === 'Legacy entry retained') return 'status-legacy';
-      if (value === 'Very likely' || value === 'Likely correct') return 'status-likely';
-      if (value === 'Probable') return 'status-probable';
-      if (value === 'Possible') return 'status-possible';
-      if (value === 'Needs review' || value === 'Reference mismatch possible') return 'status-review';
-      if (value === 'Original / no dupe') return 'status-original';
-      if (value === 'New / Unverified') return 'status-new';
-      return 'status-unknown';
+    function primaryStatus(item) {
+      if (item.match_confidence === 'Confirmed') return { label: 'Confirmed', className: 'status-confirmed' };
+      if (item.match_confidence === 'Very likely') return { label: 'Very likely', className: 'status-likely' };
+      if (item.match_confidence === 'Probable') return { label: 'Probable', className: 'status-probable' };
+      if (item.match_confidence === 'Possible') return { label: 'Possible', className: 'status-possible' };
+      if (item.match_confidence === 'Original / no dupe') return { label: 'Original', className: 'status-original' };
+      return { label: 'Unknown', className: 'status-unknown' };
     }
 
     function viewItems() {
@@ -1272,13 +1471,10 @@
     function updateFilterOptions() {
       const items = viewItems();
       const categories = ['all', ...new Set(items.map(item => item.group))];
-      const typeOrder = ['Standard', 'Premium', 'Luxury', 'Kids', 'Body Care'];
-      const types = ['all', ...[...new Set(items.map(item => item.tier))].sort((a, b) => typeOrder.indexOf(a) - typeOrder.indexOf(b))];
       const brands = ['all', ...new Set(items.map(item => item.brand).filter(Boolean).sort((a, b) => a.localeCompare(b)))];
-      const statuses = ['all', ...statusLabels.filter(value => items.some(item => item.verification_status === value || item.match_confidence === value || (value === 'Legacy entry retained' && item.match_method === 'Legacy entry retained' && !item.current_code) || (value === 'New / Unverified' && item.category === 'New')))];
+      const statuses = ['all', ...statusLabels.filter(value => items.some(item => item.match_confidence === value))];
 
       if (!categories.includes(categoryFilter.value)) categoryFilter.value = 'all';
-      if (!types.includes(typeFilter.value)) typeFilter.value = 'all';
       if (!brands.includes(brandFilter.value)) brandFilter.value = 'all';
       if (!statuses.includes(statusFilter.value)) statusFilter.value = 'all';
 
@@ -1289,12 +1485,6 @@
       );
 
       fillSelect(
-        typeFilter,
-        types.map(value => ({ value, label: value === 'all' ? 'All types' : value })),
-        typeFilter.value || 'all'
-      );
-
-      fillSelect(
         brandFilter,
         brands.map(value => ({ value, label: value === 'all' ? 'All brands' : value })),
         brandFilter.value || 'all'
@@ -1302,10 +1492,47 @@
 
       fillSelect(
         statusFilter,
-        statuses.map(value => ({ value, label: value === 'all' ? 'All verification' : value })),
+        statuses.map(value => ({ value, label: value === 'all' ? 'All confidence' : value === 'Original / no dupe' ? 'Original' : value })),
         statusFilter.value || 'all'
       );
 
+    }
+
+    function syncFilterUi(filteredCount) {
+      const items = viewItems();
+      const category = categoryFilter.value || 'all';
+      const status = statusFilter.value || 'all';
+      const brand = brandFilter.value || 'all';
+
+      categoryChipButtons.forEach(button => {
+        const value = button.dataset.category;
+        const available = value === 'all' || items.some(item => item.group === value);
+        button.disabled = !available;
+        button.classList.toggle('active', value === category);
+        button.setAttribute('aria-pressed', String(value === category));
+      });
+
+      confidenceChipButtons.forEach(button => {
+        const value = button.dataset.confidence;
+        const available = value === 'all' || items.some(item => item.match_confidence === value);
+        button.disabled = !available;
+        button.classList.toggle('active', value === status);
+        button.setAttribute('aria-pressed', String(value === status));
+      });
+
+      brandFilterLabel.textContent = brand === 'all' ? 'Brand' : brand;
+
+      const active = [];
+      if (search.value.trim()) active.push(`“${search.value.trim()}”`);
+      if (category !== 'all') active.push(categoryLabels[category] || category);
+      if (status !== 'all') active.push(status === 'Original / no dupe' ? 'Original' : status);
+      if (brand !== 'all') active.push(brand);
+
+      clearCatalogueFilters.hidden = active.length === 0;
+      filterSummary.hidden = active.length === 0;
+      filterSummary.textContent = active.length
+        ? `Showing ${filteredCount} item${filteredCount === 1 ? '' : 's'} · ${active.join(' · ')}`
+        : '';
     }
 
     function normalize(value) {
@@ -1416,7 +1643,6 @@
       if (page === 'perfumes' || page === 'body') {
         currentView = page;
         categoryFilter.value = 'all';
-        typeFilter.value = 'all';
         brandFilter.value = 'all';
         statusFilter.value = 'all';
         updateFilterOptions();
@@ -1429,17 +1655,15 @@
     function render() {
       const query = normalize(search.value.trim());
       const category = categoryFilter.value || 'all';
-      const type = typeFilter.value || 'all';
       const brand = brandFilter.value || 'all';
       const status = statusFilter.value || 'all';
       const filtered = viewItems().filter(item => {
         const haystack = normalize([item.no, item.legacy_code, item.current_code, item.chogan_name, item.name, item.brand, item.group, item.section, item.type, item.tier, item.size, item.price, item.verification_status, item.match_confidence].join(' '));
         const matchesSearch = !query || haystack.includes(query);
         const matchesCategory = category === 'all' || item.group === category;
-        const matchesType = type === 'all' || item.tier === type;
         const matchesBrand = brand === 'all' || item.brand === brand;
-        const matchesStatus = status === 'all' || item.verification_status === status || item.match_confidence === status || (status === 'Legacy entry retained' && item.match_method === 'Legacy entry retained' && !item.current_code) || (status === 'New / Unverified' && item.category === 'New');
-        return matchesSearch && matchesCategory && matchesType && matchesBrand && matchesStatus;
+        const matchesStatus = status === 'all' || item.match_confidence === status;
+        return matchesSearch && matchesCategory && matchesBrand && matchesStatus;
       });
 
       const sections = [...new Set(filtered.map(item => item.section))];
@@ -1453,40 +1677,49 @@
               <span>${items.length} reference${items.length > 1 ? 's' : ''}</span>
             </div>
             <div class="grid">
-              ${items.map(item => `
+              ${items.map(item => {
+                const primary = primaryStatus(item);
+                const referenceName = item.match_confidence === 'Original / no dupe' ? 'Original Chogan creation' : item.match_confidence === 'Unknown' ? 'Reference unknown' : item.name;
+                const referenceBrand = item.match_confidence === 'Original / no dupe' ? 'Chogan original' : item.match_confidence === 'Unknown' ? 'No verified reference' : (item.brand || 'No verified reference');
+                return `
                 <article class="card ${item.category === 'New' ? 'is-new' : ''}" style="--accent:${item.accent}" data-no="${item.no}">
                   <div class="product-photo" aria-hidden="true">
                           ${item.image ? `<img class="reference-img" src="${item.image}" alt="${item.brand} ${item.name} reference image" loading="eager" onerror="this.replaceWith(Object.assign(document.createElement('div'), {className: 'bottle'}))">` : `<div class="bottle"></div>`}
                   </div>
                   <div class="product">
                     <div class="product-head">
-                      <p class="name">${item.name}</p>
-                      <span class="num">${item.no}</span>
+                      <p class="name">${referenceName}</p>
+                      <span class="num">${item.current_code || item.legacy_code || item.no}</span>
                     </div>
-                    ${item.legacy_code && item.current_code && item.legacy_code !== item.current_code ? `<div class="code-pair"><span>Current ${item.current_code}</span><span>Legacy ${item.legacy_code}</span></div>` : ''}
-                    <p class="maker"><strong>${item.group === 'Body Care' ? 'Product line' : item.match_confidence === 'Confirmed' ? 'Inspired by' : item.match_confidence === 'Original / no dupe' ? 'Dupe status' : item.reference_perfume ? 'Suggested reference' : 'Reference'}</strong>${item.match_confidence === 'Original / no dupe' ? 'Original Chogan creation / no known dupe' : item.match_confidence === 'Unknown' ? 'Unknown — no verified reference' : (item.brand || 'No verified reference')}</p>
-                    <div class="details">
-                      ${item.chogan_name ? `<div class="detail"><span>Chogan</span><span>${item.chogan_name}</span></div>` : ''}
-                      <div class="detail"><span>Type</span><span>${item.type}</span></div>
-                      <div class="detail">
-                        <span>Option</span>
-                        <select class="option-select" aria-label="Choose size and price for ${item.name}" onchange="this.closest('.card').querySelector('[data-card-price]').textContent=this.selectedOptions[0].dataset.price;">
-                          ${item.options.map(option => `<option data-size="${option.size}" data-price="${option.price}">${option.label}</option>`).join('')}
-                        </select>
-                      </div>
-                      <div class="detail"><span>Price</span><span data-card-price>${item.price}</span></div>
+                    <p class="maker"><strong>${item.match_confidence === 'Confirmed' ? 'Reference brand' : item.match_confidence === 'Original / no dupe' ? 'Origin' : 'Suggested reference'}</strong>${referenceBrand}</p>
+                    ${item.chogan_name ? `<p class="chogan-product"><strong>Chogan</strong> · ${item.chogan_name}</p>` : ''}
+                    <div class="card-status-row">
+                      <span class="status-badge ${primary.className}">${primary.label}</span>
+                      ${item.category === 'New' ? '<span class="new-layer-label">New / Unverified</span>' : ''}
                     </div>
-                    <div class="meta">
-                      ${item.match_method === 'Legacy entry retained' && !item.current_code ? `<span class="status-badge status-legacy">Legacy entry — current Chogan code not verified.</span>` : ''}
-                      ${item.verification_status ? `<span class="status-badge ${statusClass(item.verification_status, item.match_confidence)}">${item.verification_status}</span>` : ''}
-                      ${item.match_confidence && item.match_confidence !== item.verification_status ? `<span class="status-badge ${statusClass(item.match_confidence, item.match_confidence)}">${item.match_confidence}</span>` : ''}
-                      ${item.popular ? `<span class="pill"><span class="note-dot" aria-hidden="true"></span>&nbsp;Popular</span>` : ''}
+                    <div class="purchase-row">
+                      <select class="option-select" aria-label="Choose size and price for ${referenceName}">
+                        ${item.options.map(option => `<option data-size="${option.size}" data-price="${option.price}">${[option.size, option.price].filter(Boolean).join(' · ')}</option>`).join('')}
+                      </select>
                     </div>
-                    ${item.head_note || item.heart_note || item.base_note ? `<details class="note-panel"><summary>Olfactory pyramid</summary>${item.head_note ? `<p><strong>Head:</strong> ${item.head_note}</p>` : ''}${item.heart_note ? `<p><strong>Heart:</strong> ${item.heart_note}</p>` : ''}${item.base_note ? `<p><strong>Base:</strong> ${item.base_note}</p>` : ''}</details>` : ''}
                     <button class="add-btn" type="button" data-add-item>Add to list</button>
+                    <details class="card-details">
+                      <summary>Notes &amp; details</summary>
+                      <dl class="technical-details">
+                        ${item.current_code ? `<dt>Current code</dt><dd>${item.current_code}</dd>` : ''}
+                        ${item.legacy_code ? `<dt>Legacy code</dt><dd>${item.legacy_code}</dd>` : ''}
+                        ${item.chogan_name ? `<dt>Chogan product</dt><dd>${item.chogan_name}</dd>` : ''}
+                        <dt>Verification</dt><dd>${item.verification_status || 'Unknown'}</dd>
+                        <dt>Confidence</dt><dd>${item.match_confidence || 'Unknown'}</dd>
+                        <dt>Match method</dt><dd>${item.match_method || 'Unknown'}</dd>
+                        ${item.product_url ? `<dt>Product page</dt><dd><a class="detail-link" href="${item.product_url}" target="_blank" rel="noreferrer">View Chogan product</a></dd>` : ''}
+                      </dl>
+                      ${item.match_reasoning ? `<p class="detail-reasoning"><strong>Match reasoning</strong>${item.match_reasoning}</p>` : ''}
+                      ${item.head_note || item.heart_note || item.base_note ? `<div class="pyramid"><h4>Olfactory pyramid</h4>${item.head_note ? `<p><strong>Head:</strong> ${item.head_note}</p>` : ''}${item.heart_note ? `<p><strong>Heart:</strong> ${item.heart_note}</p>` : ''}${item.base_note ? `<p><strong>Base:</strong> ${item.base_note}</p>` : ''}</div>` : ''}
+                    </details>
                   </div>
                 </article>
-              `).join('')}
+              `}).join('')}
             </div>
           </section>
         `;
@@ -1494,13 +1727,34 @@
 
       empty.style.display = filtered.length ? 'none' : 'block';
       totalCount.textContent = filtered.length;
+      syncFilterUi(filtered.length);
     }
 
     search.addEventListener('input', render);
-    categoryFilter.addEventListener('change', render);
-    typeFilter.addEventListener('change', render);
-    brandFilter.addEventListener('change', render);
-    statusFilter.addEventListener('change', render);
+    categoryChips.addEventListener('click', event => {
+      const button = event.target.closest('[data-category]');
+      if (!button || button.disabled) return;
+      categoryFilter.value = button.dataset.category;
+      render();
+    });
+    confidenceChips.addEventListener('click', event => {
+      const button = event.target.closest('[data-confidence]');
+      if (!button || button.disabled) return;
+      statusFilter.value = button.dataset.confidence;
+      render();
+    });
+    brandFilter.addEventListener('change', () => {
+      brandFilterMenu.open = false;
+      render();
+    });
+    clearCatalogueFilters.addEventListener('click', () => {
+      search.value = '';
+      categoryFilter.value = 'all';
+      brandFilter.value = 'all';
+      statusFilter.value = 'all';
+      brandFilterMenu.open = false;
+      render();
+    });
     catalogue.addEventListener('click', event => {
       const button = event.target.closest('[data-add-item]');
       if (!button) return;
