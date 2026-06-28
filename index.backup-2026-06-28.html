@@ -575,54 +575,6 @@
       background: #f8fafc;
     }
 
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-      min-height: 24px;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      padding: 3px 8px;
-      font-size: 11px;
-      font-weight: 800;
-      line-height: 1.2;
-    }
-
-    .status-confirmed { color: #176448; background: #edf8f3; border-color: #c5e7d8; }
-    .status-legacy { color: #285d6a; background: #eef7f8; border-color: #c9e2e6; }
-    .status-likely { color: #315d82; background: #eef5fa; border-color: #cddfea; }
-    .status-probable { color: #795b18; background: #fbf6e8; border-color: #eadba8; }
-    .status-possible { color: #83502f; background: #fbf1ea; border-color: #e8cfbd; }
-    .status-review { color: #8c3f3f; background: #fbefef; border-color: #e8c7c7; }
-    .status-original { color: #4d5967; background: #f2f5f7; border-color: #d8dfe5; }
-    .status-unknown { color: #59616b; background: #f3f4f5; border-color: #d9dcdf; }
-    .status-new { color: #8a365f; background: #fbf0f5; border-color: #e8c6d7; }
-
-    .card.is-new {
-      border-style: dashed;
-      border-color: #d9a9c0;
-      background: #fffafd;
-    }
-
-    .code-pair {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px 8px;
-      margin-top: 5px;
-      color: var(--muted);
-      font-size: 11px;
-    }
-
-    .note-panel {
-      margin-top: 9px;
-      border-top: 1px solid #edf1f5;
-      padding-top: 7px;
-      color: var(--muted);
-      font-size: 11px;
-    }
-
-    .note-panel summary { cursor: pointer; font-weight: 800; color: #425064; }
-    .note-panel p { margin: 5px 0 0; line-height: 1.35; }
-
     .details {
       display: grid;
       gap: 6px;
@@ -815,10 +767,6 @@
           <label for="brandFilter">Brands</label>
           <select id="brandFilter" class="filter-select" aria-label="Brands"></select>
         </div>
-        <div class="field">
-          <label for="statusFilter">Verification</label>
-          <select id="statusFilter" class="filter-select" aria-label="Verification status"></select>
-        </div>
       </div>
     </div>
 
@@ -857,7 +805,6 @@
 
   </main>
 
-  <script src="catalogue_data.js"></script>
   <script>
     const referenceImages = {
           "001": "reference-images/001-paco-rabanne-one-million.jpg",
@@ -1144,7 +1091,7 @@
       {section:'Body care products', group:'Body Care', accent:'#586a78', no:'OIL', name:'Perfumed Sweet Almond Oil', brand:'Chogan', type:'Body care', size:'100 ml', price:'23.90 EUR'}
     ];
 
-    const legacyCatalogueItems = [
+    const catalogueItems = [
       ...products.map(item => {
         const lowerSection = item.section.toLowerCase();
         const audience = lowerSection.includes('women') ? 'Women' : lowerSection.includes('men') ? 'Men' : lowerSection.includes('unisex') ? 'Unisex' : item.group;
@@ -1181,35 +1128,6 @@
       ...bodyProducts.map(item => ({ ...item, image: referenceImages[item.no], audience: 'Body Care', tier: 'Body Care', options: [{ label: `${item.size} - ${item.price}`, size: item.size, price: item.price }] }))
     ];
 
-    const statusAccents = {
-      New: '#a24c73', Women: '#d12f8a', Men: '#1877a6', Unisex: '#208261',
-      Kids: '#579cc9', 'Body Care': '#586a78', Premium: '#a66b15', Luxury: '#b64242'
-    };
-
-    const catalogueItems = (window.CHOGAN_CATALOGUE || legacyCatalogueItems).map(item => {
-      if (!item.current_code && !item.legacy_code) return item;
-      const no = item.current_code || item.legacy_code;
-      const isBody = item.category === 'Body Care';
-      const tier = isBody ? 'Body Care' : item.category === 'New' ? 'New' : /luxury/i.test(item.type) ? 'Luxury' : /premium/i.test(item.type) ? 'Premium' : /kids/i.test(item.type) ? 'Kids' : 'Standard';
-      const size = isBody ? (item.notes.match(/\b\d+\s*ml\b/i) || [''])[0] : tier === 'Luxury' ? '50 ml' : tier === 'Kids' ? '30 ml' : '70 ml';
-      const price = item.price || 'Price unavailable';
-      return {
-        ...item,
-        no,
-        name: ['Unknown', 'Original / no dupe'].includes(item.match_confidence) ? (item.chogan_name || no) : (item.reference_perfume || item.chogan_name || no),
-        brand: item.reference_brand || (isBody ? 'Chogan' : ''),
-        group: item.category,
-        section: item.subcategory,
-        audience: item.gender_category || item.category,
-        tier,
-        size,
-        price,
-        image: item.image || referenceImages[item.legacy_code] || referenceImages[item.current_code],
-        accent: statusAccents[item.category] || '#586a78',
-        options: [{ label: [size, price].filter(Boolean).join(' - '), size, price }]
-      };
-    });
-
     const catalogue = document.getElementById('catalogue');
     const empty = document.getElementById('empty');
     const browsePage = document.getElementById('browsePage');
@@ -1219,7 +1137,6 @@
     const categoryFilter = document.getElementById('categoryFilter');
     const typeFilter = document.getElementById('typeFilter');
     const brandFilter = document.getElementById('brandFilter');
-    const statusFilter = document.getElementById('statusFilter');
     const selectionList = document.getElementById('selectionList');
     const selectionCount = document.getElementById('selectionCount');
     const selectionTotal = document.getElementById('selectionTotal');
@@ -1238,27 +1155,8 @@
       Men: 'Men',
       Unisex: 'Unisex',
       Kids: 'Kids',
-      New: 'New / Unverified',
       'Body Care': 'Body Care'
     };
-
-    const statusLabels = [
-      'Confirmed', 'Legacy code / current code found', 'Likely correct', 'Very likely',
-      'Probable', 'Possible', 'Needs review', 'Reference mismatch possible',
-      'Original / no dupe', 'Unknown', 'Legacy entry retained', 'New / Unverified'
-    ];
-
-    function statusClass(value, confidence = '') {
-      if (value === 'Confirmed') return confidence === 'Confirmed' ? 'status-confirmed' : 'status-unknown';
-      if (value === 'Legacy code / current code found' || value === 'Legacy entry retained') return 'status-legacy';
-      if (value === 'Very likely' || value === 'Likely correct') return 'status-likely';
-      if (value === 'Probable') return 'status-probable';
-      if (value === 'Possible') return 'status-possible';
-      if (value === 'Needs review' || value === 'Reference mismatch possible') return 'status-review';
-      if (value === 'Original / no dupe') return 'status-original';
-      if (value === 'New / Unverified') return 'status-new';
-      return 'status-unknown';
-    }
 
     function viewItems() {
       return catalogueItems.filter(item => currentView === 'body' ? item.group === 'Body Care' : item.group !== 'Body Care');
@@ -1274,13 +1172,11 @@
       const categories = ['all', ...new Set(items.map(item => item.group))];
       const typeOrder = ['Standard', 'Premium', 'Luxury', 'Kids', 'Body Care'];
       const types = ['all', ...[...new Set(items.map(item => item.tier))].sort((a, b) => typeOrder.indexOf(a) - typeOrder.indexOf(b))];
-      const brands = ['all', ...new Set(items.map(item => item.brand).filter(Boolean).sort((a, b) => a.localeCompare(b)))];
-      const statuses = ['all', ...statusLabels.filter(value => items.some(item => item.verification_status === value || item.match_confidence === value || (value === 'Legacy entry retained' && item.match_method === 'Legacy entry retained' && !item.current_code) || (value === 'New / Unverified' && item.category === 'New')))];
+      const brands = ['all', ...new Set(items.map(item => item.brand).sort((a, b) => a.localeCompare(b)))];
 
       if (!categories.includes(categoryFilter.value)) categoryFilter.value = 'all';
       if (!types.includes(typeFilter.value)) typeFilter.value = 'all';
       if (!brands.includes(brandFilter.value)) brandFilter.value = 'all';
-      if (!statuses.includes(statusFilter.value)) statusFilter.value = 'all';
 
       fillSelect(
         categoryFilter,
@@ -1298,12 +1194,6 @@
         brandFilter,
         brands.map(value => ({ value, label: value === 'all' ? 'All brands' : value })),
         brandFilter.value || 'all'
-      );
-
-      fillSelect(
-        statusFilter,
-        statuses.map(value => ({ value, label: value === 'all' ? 'All verification' : value })),
-        statusFilter.value || 'all'
       );
 
     }
@@ -1418,7 +1308,6 @@
         categoryFilter.value = 'all';
         typeFilter.value = 'all';
         brandFilter.value = 'all';
-        statusFilter.value = 'all';
         updateFilterOptions();
         render();
       } else {
@@ -1431,15 +1320,13 @@
       const category = categoryFilter.value || 'all';
       const type = typeFilter.value || 'all';
       const brand = brandFilter.value || 'all';
-      const status = statusFilter.value || 'all';
       const filtered = viewItems().filter(item => {
-        const haystack = normalize([item.no, item.legacy_code, item.current_code, item.chogan_name, item.name, item.brand, item.group, item.section, item.type, item.tier, item.size, item.price, item.verification_status, item.match_confidence].join(' '));
+        const haystack = normalize([item.no, item.name, item.brand, item.group, item.section, item.type, item.tier, item.size, item.price].join(' '));
         const matchesSearch = !query || haystack.includes(query);
         const matchesCategory = category === 'all' || item.group === category;
         const matchesType = type === 'all' || item.tier === type;
         const matchesBrand = brand === 'all' || item.brand === brand;
-        const matchesStatus = status === 'all' || item.verification_status === status || item.match_confidence === status || (status === 'Legacy entry retained' && item.match_method === 'Legacy entry retained' && !item.current_code) || (status === 'New / Unverified' && item.category === 'New');
-        return matchesSearch && matchesCategory && matchesType && matchesBrand && matchesStatus;
+        return matchesSearch && matchesCategory && matchesType && matchesBrand;
       });
 
       const sections = [...new Set(filtered.map(item => item.section))];
@@ -1454,7 +1341,7 @@
             </div>
             <div class="grid">
               ${items.map(item => `
-                <article class="card ${item.category === 'New' ? 'is-new' : ''}" style="--accent:${item.accent}" data-no="${item.no}">
+                <article class="card" style="--accent:${item.accent}" data-no="${item.no}">
                   <div class="product-photo" aria-hidden="true">
                           ${item.image ? `<img class="reference-img" src="${item.image}" alt="${item.brand} ${item.name} reference image" loading="eager" onerror="this.replaceWith(Object.assign(document.createElement('div'), {className: 'bottle'}))">` : `<div class="bottle"></div>`}
                   </div>
@@ -1463,10 +1350,8 @@
                       <p class="name">${item.name}</p>
                       <span class="num">${item.no}</span>
                     </div>
-                    ${item.legacy_code && item.current_code && item.legacy_code !== item.current_code ? `<div class="code-pair"><span>Current ${item.current_code}</span><span>Legacy ${item.legacy_code}</span></div>` : ''}
-                    <p class="maker"><strong>${item.group === 'Body Care' ? 'Product line' : item.match_confidence === 'Confirmed' ? 'Inspired by' : item.match_confidence === 'Original / no dupe' ? 'Dupe status' : item.reference_perfume ? 'Suggested reference' : 'Reference'}</strong>${item.match_confidence === 'Original / no dupe' ? 'Original Chogan creation / no known dupe' : item.match_confidence === 'Unknown' ? 'Unknown — no verified reference' : (item.brand || 'No verified reference')}</p>
+                    <p class="maker"><strong>${item.group === 'Body Care' ? 'Product line' : 'Inspired by'}</strong>${item.brand}</p>
                     <div class="details">
-                      ${item.chogan_name ? `<div class="detail"><span>Chogan</span><span>${item.chogan_name}</span></div>` : ''}
                       <div class="detail"><span>Type</span><span>${item.type}</span></div>
                       <div class="detail">
                         <span>Option</span>
@@ -1477,12 +1362,8 @@
                       <div class="detail"><span>Price</span><span data-card-price>${item.price}</span></div>
                     </div>
                     <div class="meta">
-                      ${item.match_method === 'Legacy entry retained' && !item.current_code ? `<span class="status-badge status-legacy">Legacy entry — current Chogan code not verified.</span>` : ''}
-                      ${item.verification_status ? `<span class="status-badge ${statusClass(item.verification_status, item.match_confidence)}">${item.verification_status}</span>` : ''}
-                      ${item.match_confidence && item.match_confidence !== item.verification_status ? `<span class="status-badge ${statusClass(item.match_confidence, item.match_confidence)}">${item.match_confidence}</span>` : ''}
                       ${item.popular ? `<span class="pill"><span class="note-dot" aria-hidden="true"></span>&nbsp;Popular</span>` : ''}
                     </div>
-                    ${item.head_note || item.heart_note || item.base_note ? `<details class="note-panel"><summary>Olfactory pyramid</summary>${item.head_note ? `<p><strong>Head:</strong> ${item.head_note}</p>` : ''}${item.heart_note ? `<p><strong>Heart:</strong> ${item.heart_note}</p>` : ''}${item.base_note ? `<p><strong>Base:</strong> ${item.base_note}</p>` : ''}</details>` : ''}
                     <button class="add-btn" type="button" data-add-item>Add to list</button>
                   </div>
                 </article>
@@ -1500,7 +1381,6 @@
     categoryFilter.addEventListener('change', render);
     typeFilter.addEventListener('change', render);
     brandFilter.addEventListener('change', render);
-    statusFilter.addEventListener('change', render);
     catalogue.addEventListener('click', event => {
       const button = event.target.closest('[data-add-item]');
       if (!button) return;
