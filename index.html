@@ -128,44 +128,6 @@
       color: #fff;
     }
 
-    .home-panel {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-      margin-top: 18px;
-    }
-
-    .home-card {
-      min-height: 170px;
-      display: grid;
-      align-content: space-between;
-      gap: 18px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 18px;
-      background: #fff;
-      box-shadow: var(--shadow);
-    }
-
-    .home-card h2 {
-      margin: 0;
-      font-size: 22px;
-      text-transform: uppercase;
-    }
-
-    .home-card p {
-      margin: 6px 0 0;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .home-card button {
-      justify-self: start;
-      color: #fff;
-      border-color: #29364a;
-      background: #29364a;
-    }
-
     .page-view[hidden] {
       display: none;
     }
@@ -720,7 +682,6 @@
     @media (max-width: 900px) {
       .filter-row { justify-content: flex-start; }
       .tools { top: 0; }
-      .home-panel { grid-template-columns: 1fr; }
       .summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
       .catalogue-shell { grid-template-columns: 1fr; }
@@ -828,10 +789,9 @@
     <div class="tools">
       <div class="store-tabs">
         <div class="top-menu" aria-label="Main menu">
-          <button class="menu-btn active" type="button" data-page="home">Home</button>
-          <button class="menu-btn" type="button" data-page="perfumes">Perfumes</button>
+          <button class="menu-btn active" type="button" data-page="perfumes">Perfumes</button>
           <button class="menu-btn" type="button" data-page="body">Body Care</button>
-          <button class="menu-btn" type="button" data-page="bag">Shopping bag <span id="bagMenuCount" class="menu-count">0</span></button>
+          <button class="menu-btn" type="button" data-page="bag">List <span id="bagMenuCount" class="menu-count">0</span></button>
         </div>
         <span class="result-count"><span id="totalCount">0</span> items</span>
       </div>
@@ -852,31 +812,7 @@
       </div>
     </div>
 
-    <section id="homePage" class="home-panel page-view">
-      <article class="home-card">
-        <div>
-          <h2>Perfumes</h2>
-          <p>Browse women, men, unisex, premium, luxury and kids references.</p>
-        </div>
-        <button type="button" data-home-target="perfumes">Open perfumes</button>
-      </article>
-      <article class="home-card">
-        <div>
-          <h2>Body Care</h2>
-          <p>Look separately at gels, creams and almond oil.</p>
-        </div>
-        <button type="button" data-home-target="body">Open body care</button>
-      </article>
-      <article class="home-card">
-        <div>
-          <h2>Shopping bag</h2>
-          <p>Build a quick selection list for copying or screenshotting.</p>
-        </div>
-        <button type="button" data-home-target="bag">Open bag</button>
-      </article>
-    </section>
-
-    <div id="browsePage" class="catalogue-shell page-view" hidden>
+    <div id="browsePage" class="catalogue-shell page-view">
       <aside class="side-nav" aria-label="Category navigation">
         <div class="side-title">Categories</div>
         <div id="sideNavList" class="side-list"></div>
@@ -891,7 +827,7 @@
       <aside class="selection-panel" aria-label="Selected items">
         <div class="selection-head">
           <div>
-            <h2>Shopping bag</h2>
+            <h2>My list</h2>
             <p>For screenshotting or copying.</p>
           </div>
           <span id="selectionCount" class="selection-count">0</span>
@@ -1239,7 +1175,6 @@
 
     const catalogue = document.getElementById('catalogue');
     const empty = document.getElementById('empty');
-    const homePage = document.getElementById('homePage');
     const browsePage = document.getElementById('browsePage');
     const bagPage = document.getElementById('bagPage');
     const filters = document.getElementById('filters');
@@ -1254,9 +1189,8 @@
     const copySelection = document.getElementById('copySelection');
     const clearSelection = document.getElementById('clearSelection');
     const menuButtons = [...document.querySelectorAll('[data-page]')];
-    const homeButtons = [...document.querySelectorAll('[data-home-target]')];
     const totalCount = document.getElementById('totalCount');
-    let currentPage = 'home';
+    let currentPage = 'perfumes';
     let currentView = 'perfumes';
     let tierFilter = 'all';
     let selectedItems = [];
@@ -1454,7 +1388,6 @@
 
     function setPage(page) {
       currentPage = page;
-      homePage.hidden = page !== 'home';
       browsePage.hidden = page !== 'perfumes' && page !== 'body';
       bagPage.hidden = page !== 'bag';
       filters.hidden = page !== 'perfumes' && page !== 'body';
@@ -1596,14 +1529,10 @@
         setPage(button.dataset.page);
       });
     });
-    homeButtons.forEach(button => {
-      button.addEventListener('click', () => setPage(button.dataset.homeTarget));
-    });
-
     updateFilterOptions();
     renderSelection();
     render();
-    setPage('home');
+    setPage('perfumes');
   </script>
 </body>
 </html>
