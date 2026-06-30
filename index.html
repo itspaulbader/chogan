@@ -803,6 +803,59 @@
 
     .add-btn:hover { background: #1f2a3b; }
 
+    .add-btn.is-added {
+      border-color: #2f7058;
+      background: #2f7058;
+    }
+
+    .add-btn:active { transform: translateY(1px); }
+
+    .list-link.is-pulsing .menu-count { animation: bag-pulse .42s ease-out; }
+
+    @keyframes bag-pulse {
+      0%, 100% { transform: scale(1); }
+      45% { transform: scale(1.22); }
+    }
+
+    .add-toast {
+      position: fixed;
+      z-index: 50;
+      right: 20px;
+      bottom: 20px;
+      max-width: min(360px, calc(100vw - 24px));
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      border: 1px solid #cfe2d9;
+      border-radius: 8px;
+      padding: 11px 14px;
+      background: #fff;
+      color: #24372f;
+      box-shadow: 0 8px 24px rgba(25, 40, 34, .14);
+      font-size: 13px;
+      font-weight: 700;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(8px);
+      transition: opacity .18s ease, transform .18s ease;
+    }
+
+    .add-toast::before {
+      content: "✓";
+      width: 20px;
+      height: 20px;
+      flex: 0 0 20px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #e7f4ed;
+      color: #246149;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .add-toast.show { opacity: 1; transform: translateY(0); }
+
     .pill {
       display: inline-flex;
       align-items: center;
@@ -1111,6 +1164,13 @@
       .selection-list { overflow-y: auto; }
       .bag-close { display: inline-grid; place-items: center; flex: 0 0 36px; }
       .selection-count { margin-left: auto; }
+      .add-toast {
+        right: 50%;
+        bottom: max(18px, env(safe-area-inset-bottom));
+        width: max-content;
+        transform: translate(50%, 8px);
+      }
+      .add-toast.show { transform: translate(50%, 0); }
     }
 
     @media (max-width: 379px) {
@@ -1131,6 +1191,12 @@
       header { grid-template-columns: 1fr; }
       .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
       .card { break-inside: avoid; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .add-toast { transition: none; }
+      .list-link.is-pulsing .menu-count { animation: none; }
+      .add-btn:active { transform: none; }
     }
   </style>
 </head>
@@ -1241,6 +1307,8 @@
     </div>
 
   </main>
+
+  <div id="addToast" class="add-toast" role="status" aria-live="polite" aria-atomic="true"></div>
 
   <script src="catalogue_data.js"></script>
   <script>
@@ -1639,6 +1707,8 @@
     const selectionCount = document.getElementById('selectionCount');
     const selectionTotal = document.getElementById('selectionTotal');
     const bagMenuCount = document.getElementById('bagMenuCount');
+    const bagButton = document.querySelector('.list-link[data-page="bag"]');
+    const addToast = document.getElementById('addToast');
     const copySelection = document.getElementById('copySelection');
     const clearSelection = document.getElementById('clearSelection');
     const closeBag = document.getElementById('closeBag');
@@ -1647,6 +1717,8 @@
     let currentPage = 'perfumes';
     let currentView = 'perfumes';
     let selectedItems = [];
+    let toastTimer;
+    const buttonFeedbackTimers = new WeakMap();
 
     const categoryLabels = {
       all: 'All',
@@ -1820,6 +1892,7 @@
     function addSelectionItem(item, option, quantity = 1) {
       const key = `${item.no}|${option.size}|${option.price}`;
       const existing = selectedItems.find(entry => entry.key === key);
+      const quantityUpdated = Boolean(existing);
 
       if (existing) {
         existing.qty += quantity;
@@ -1838,15 +1911,49 @@
       }
 
       renderSelection();
+      return quantityUpdated;
     }
 
-    function addCardSelection(card) {
+    function pulseBagCount() {
+      bagButton.classList.remove('is-pulsing');
+      void bagButton.offsetWidth;
+      bagButton.classList.add('is-pulsing');
+      window.setTimeout(() => bagButton.classList.remove('is-pulsing'), 450);
+    }
+
+    function showAddToast(message) {
+      window.clearTimeout(toastTimer);
+      addToast.textContent = message;
+      addToast.classList.add('show');
+      toastTimer = window.setTimeout(() => addToast.classList.remove('show'), 2600);
+    }
+
+    function showButtonFeedback(button) {
+      window.clearTimeout(buttonFeedbackTimers.get(button));
+      button.textContent = 'Added ✓';
+      button.classList.add('is-added');
+      button.disabled = true;
+      const timer = window.setTimeout(() => {
+        button.textContent = 'Add to list';
+        button.classList.remove('is-added');
+        button.disabled = false;
+        buttonFeedbackTimers.delete(button);
+      }, 1500);
+      buttonFeedbackTimers.set(button, timer);
+    }
+
+    function addCardSelection(card, button) {
       const item = catalogueItems.find(entry => entry.no === card.dataset.no);
       if (!item) return;
       const selectedChip = card.querySelector('.format-chip.selected');
       const option = item.options[Number(selectedChip?.dataset.optionIndex || 0)] || item.options[0];
       const quantity = Number(card.querySelector('.card-qty-value')?.textContent || 1);
-      addSelectionItem(item, option, quantity);
+      const quantityUpdated = addSelectionItem(item, option, quantity);
+      showButtonFeedback(button);
+      pulseBagCount();
+      showAddToast(quantityUpdated
+        ? 'Quantity updated in My List'
+        : `Added ${quantity > 1 ? `${quantity} × ` : ''}${option.size} ${item.name} to My List`);
     }
 
     function changeQuantity(key, amount) {
@@ -2144,7 +2251,8 @@
         return;
       }
 
-      if (event.target.closest('[data-add-item]')) addCardSelection(card);
+      const addButton = event.target.closest('[data-add-item]');
+      if (addButton) addCardSelection(card, addButton);
     });
     selectionList.addEventListener('click', event => {
       const item = event.target.closest('[data-selection-key]');
