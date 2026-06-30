@@ -39,7 +39,7 @@
       margin-bottom: 12px;
     }
 
-    .intro, .tools, .notice {
+    .intro, .notice {
       background: var(--white);
       border: 1px solid var(--line);
       border-radius: 8px;
@@ -94,34 +94,59 @@
       display: block;
     }
 
+    .tools {
+      margin: 0 0 22px;
+      display: grid;
+      gap: 0;
+      background: transparent;
+    }
+
     .top-menu {
       display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
+      gap: 18px;
+      flex-wrap: nowrap;
       align-items: center;
       min-width: 0;
     }
 
     .menu-btn {
-      min-height: 42px;
+      min-height: 44px;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      border-bottom: 2px solid transparent;
+      background: transparent;
+      color: #627285;
+      font-size: 14px;
+      font-weight: 800;
       white-space: nowrap;
     }
 
     .menu-btn .menu-count {
       display: inline-grid;
-      min-width: 22px;
-      height: 22px;
+      min-width: 20px;
+      height: 20px;
       margin-left: 6px;
       place-items: center;
       border-radius: 999px;
-      background: #edf2f7;
-      color: var(--ink);
-      font-size: 12px;
+      background: #243447;
+      color: #fff;
+      font-size: 11px;
       font-weight: 900;
     }
 
+    .menu-btn:hover {
+      color: #1f2933;
+    }
+
+    .menu-btn.active {
+      color: #1f2933;
+      border-bottom-color: #1f2933;
+      background: transparent;
+    }
+
     .menu-btn.active .menu-count {
-      background: rgba(255,255,255,.22);
+      background: #1f2933;
       color: #fff;
     }
 
@@ -225,6 +250,9 @@
       font-weight: 900;
     }
 
+    .selection-price span { display: block; color: var(--muted); font-size: 10px; font-weight: 700; }
+    .selection-price strong { display: block; }
+
     .qty-row, .selection-actions {
       display: flex;
       align-items: center;
@@ -265,40 +293,36 @@
       flex: 1 1 auto;
     }
 
-    .tools {
-      margin: 14px 0 18px;
-      padding: 10px 12px;
+    .store-tabs {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 9px;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 18px;
+      align-items: center;
       position: sticky;
       top: 0;
-      z-index: 4;
-    }
-
-    .store-tabs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: end;
+      z-index: 8;
+      margin: 0 -18px;
+      padding: 12px 18px;
+      background: rgba(251, 252, 253, .98);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(8px);
     }
 
     .filter-row {
       display: grid;
-      gap: 9px;
+      gap: 12px;
+      padding-top: 14px;
     }
 
-    .filter-primary {
+    .toolbar-row {
       display: grid;
-      grid-template-columns: minmax(280px, 1fr) auto auto;
+      grid-template-columns: minmax(320px, 1fr) repeat(3, minmax(136px, auto)) auto;
       gap: 8px;
       align-items: center;
     }
 
     .store-tabs {
       justify-content: space-between;
-      border-bottom: 1px solid var(--line);
-      padding-bottom: 8px;
     }
 
     .view-buttons {
@@ -307,10 +331,52 @@
       gap: 8px;
     }
 
-    .result-count {
-      color: var(--muted);
+    .store-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .list-link {
+      min-height: 40px;
+      padding: 0 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: #1f2933;
       font-size: 14px;
-      font-weight: 700;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+    }
+
+    .list-link .menu-count {
+      min-width: 20px;
+      height: 20px;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 999px;
+      background: #29364a;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .list-link.active {
+      border-color: #1f2933;
+      background: #1f2933;
+      color: #fff;
+    }
+
+    .list-icon {
+      width: 16px;
+      height: 16px;
+      display: block;
+    }
+
+    .list-text {
       white-space: nowrap;
     }
 
@@ -321,72 +387,22 @@
     }
 
     .field label {
-      color: var(--muted);
-      font-size: 10px;
-      font-weight: 800;
-      text-transform: uppercase;
+      display: none;
     }
-
-    .search-field label { display: none; }
 
     .search, .filter-select {
       width: 100%;
-      min-height: 38px;
+      min-height: 42px;
       border: 1px solid var(--line);
       border-radius: 8px;
-      padding: 0 11px;
+      padding: 0 12px;
       font-size: 14px;
       color: var(--ink);
       background: #fff;
     }
 
-    .brand-filter {
-      position: relative;
-    }
-
-    .brand-filter summary {
-      min-width: 112px;
-      min-height: 38px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 0 34px 0 12px;
-      display: flex;
-      align-items: center;
-      background: #fff;
-      color: var(--ink);
-      font-size: 13px;
-      font-weight: 800;
-      cursor: pointer;
-      list-style: none;
-      position: relative;
-    }
-
-    .brand-filter summary::-webkit-details-marker { display: none; }
-    .brand-filter summary::after {
-      content: "";
-      width: 7px;
-      height: 7px;
-      border-right: 1.5px solid currentColor;
-      border-bottom: 1.5px solid currentColor;
-      transform: rotate(45deg);
-      position: absolute;
-      right: 13px;
-      top: 13px;
-    }
-
-    .brand-filter[open] summary::after { transform: rotate(225deg); top: 17px; }
-
-    .brand-filter .filter-select {
-      position: absolute;
-      right: 0;
-      top: calc(100% + 5px);
-      z-index: 6;
-      width: 230px;
-      box-shadow: 0 10px 24px rgba(39, 52, 70, .12);
-    }
-
     .clear-filters {
-      min-height: 38px;
+      min-height: 42px;
       border-color: transparent;
       padding-inline: 8px;
       color: #536174;
@@ -396,32 +412,29 @@
 
     .clear-filters[hidden] { display: none; }
 
-    .filter-chip-groups {
-      display: grid;
-      gap: 6px;
-    }
-
     .filter-chip-row {
       display: flex;
       align-items: center;
-      gap: 5px;
-      flex-wrap: wrap;
+      gap: 8px;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+      scrollbar-width: none;
     }
 
-    .filter-chip-row + .filter-chip-row {
-      border-top: 1px solid #edf1f5;
-      padding-top: 6px;
-    }
+    .filter-chip-row::-webkit-scrollbar { display: none; }
 
     .filter-chip {
       min-height: 32px;
       border-radius: 999px;
-      padding: 0 11px;
+      padding: 0 13px;
       color: #4f5d70;
       background: #fff;
       font-size: 12px;
       font-weight: 700;
       white-space: nowrap;
+      flex: 0 0 auto;
     }
 
     .filter-chip:hover { border-color: #aeb9c6; }
@@ -438,11 +451,63 @@
     .filter-summary {
       min-height: 18px;
       color: var(--muted);
-      font-size: 12px;
+      font-size: 13px;
       line-height: 1.4;
     }
 
-    .filter-summary[hidden] { display: none; }
+    .toolbar-row {
+      padding-top: 2px;
+    }
+
+    .filter-summary[hidden] { display: block; visibility: hidden; }
+
+    .mobile-utility-row,
+    .mobile-filters-panel,
+    .mobile-sort-panel {
+      display: none;
+    }
+
+    .mobile-clear-filters { width: 100%; color: #536174; background: #f7f8fa; }
+
+    .bag-close {
+      display: none;
+      min-width: 36px;
+      width: 36px;
+      min-height: 36px;
+      padding: 0;
+      font-size: 22px;
+      line-height: 1;
+    }
+
+    .subsection {
+      margin-top: 16px;
+    }
+
+    .subsection:first-child {
+      margin-top: 0;
+    }
+
+    .subsection-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 0 0 10px;
+      padding-top: 4px;
+    }
+
+    .subsection-head h3 {
+      margin: 0;
+      font-size: 15px;
+      text-transform: uppercase;
+      color: #334155;
+    }
+
+    .subsection-head span {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
 
     button {
       min-height: 38px;
@@ -495,9 +560,9 @@
       border-bottom: 1px solid var(--line);
       border-left: 5px solid var(--section-color, #d9e1ea);
       background: var(--section-bg, transparent);
-      border-radius: 8px 8px 0 0;
+      border-radius: 0;
       margin-bottom: 12px;
-      padding: 10px 12px;
+      padding: 8px 2px 10px 12px;
       color: var(--ink);
     }
 
@@ -519,50 +584,50 @@
     .grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 12px;
+      gap: 18px 14px;
     }
 
     .card {
-      background: #fff;
-      border: 1px solid var(--line);
+      background: #f7f8fa;
+      border: 1px solid #e5e9ee;
       border-radius: 8px;
-      padding: 12px;
+      padding: 10px 10px 14px;
       min-height: 248px;
       display: grid;
-      gap: 9px;
+      gap: 12px;
       align-content: start;
       position: relative;
       overflow: hidden;
+      transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
     }
 
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 0 0 auto;
-      height: 4px;
-      background: #d9e1ea;
+    .card:hover {
+      border-color: #cdd5de;
+      box-shadow: 0 4px 14px rgba(32, 44, 59, .05);
+      transform: translateY(-2px);
     }
 
     .product-photo {
-      min-height: 132px;
-      border: 1px solid #edf1f5;
-      border-radius: 8px;
-      background:
-        radial-gradient(circle at 50% 84%, rgba(44, 54, 68, .16), transparent 24%),
-        #fff;
+      height: 210px;
+      border: 0;
+      border-radius: 6px;
+      background: #fff;
       display: grid;
       place-items: center;
       overflow: hidden;
+      position: relative;
     }
 
     .reference-img {
       width: 100%;
-      height: 132px;
+      height: 210px;
       object-fit: contain;
-      padding: 10px;
+      padding: 16px;
       background: #fff;
       display: block;
     }
+
+    .photo-code { position: absolute; z-index: 1; top: 9px; right: 9px; }
 
     .bottle {
       width: 56px;
@@ -605,31 +670,30 @@
     }
 
     .num {
-      min-width: 44px;
-      height: 30px;
+      min-width: 38px;
+      height: 25px;
       display: inline-grid;
       place-items: center;
-      border-radius: 8px;
+      border-radius: 6px;
       color: #fff;
       background: #29364a;
-      font-weight: 900;
-      font-size: 13px;
+      padding: 0 7px;
+      font-weight: 800;
+      font-size: 11px;
     }
 
     .product { min-width: 0; }
 
     .product-head {
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
-      align-items: start;
+      display: block;
     }
 
     .name {
-      margin: 0 0 3px;
-      font-weight: 900;
-      text-transform: uppercase;
-      font-size: 15px;
+      margin: 0 0 4px;
+      font-weight: 800;
+      text-transform: none;
+      font-size: 16px;
+      line-height: 1.25;
       overflow-wrap: anywhere;
     }
 
@@ -639,32 +703,25 @@
       font-size: 13px;
     }
 
-    .maker strong {
-      display: block;
-      color: #364454;
-      text-transform: uppercase;
-      font-size: 12px;
-      letter-spacing: 0;
-    }
-
     .chogan-product {
-      margin: 7px 0 0;
-      color: #425064;
+      margin: 6px 0 0;
+      color: #667386;
       font-size: 12px;
       line-height: 1.35;
     }
 
     .chogan-product strong {
-      color: var(--muted);
+      color: #4e5d6f;
       font-weight: 700;
+      margin-right: 4px;
     }
 
     .card-status-row {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-start;
       gap: 8px;
-      margin-top: 9px;
+      margin-top: 8px;
     }
 
     .new-layer-label {
@@ -676,8 +733,57 @@
     }
 
     .purchase-row {
-      margin-top: 10px;
+      display: grid;
+      gap: 9px;
+      margin-top: 13px;
+      padding-top: 11px;
+      border-top: 1px solid #edf0f3;
     }
+
+    .format-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+
+    .format-chip {
+      min-height: 29px;
+      flex: 0 0 auto;
+      border-radius: 6px;
+      padding: 0 8px;
+      background: #fff;
+      color: #344154;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .format-chip.selected { color: #fff; border-color: #29364a; background: #29364a; }
+
+    .price-teaser { color: #263448; font-size: 16px; font-weight: 800; }
+
+    .card-buy-row {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 8px;
+      align-items: center;
+    }
+
+    .card-qty {
+      display: grid;
+      grid-template-columns: 30px 28px 30px;
+      align-items: center;
+      border: 1px solid #dce2e8;
+      border-radius: 8px;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .card-qty-btn {
+      min-height: 36px;
+      border: 0;
+      border-radius: 0;
+      padding: 0;
+      background: #fff;
+      font-size: 17px;
+    }
+
+    .card-qty-value { text-align: center; font-size: 12px; font-weight: 800; }
 
     .meta {
       margin-top: 8px;
@@ -689,11 +795,13 @@
 
     .add-btn {
       width: 100%;
-      margin-top: 10px;
+      margin-top: 0;
       color: #fff;
       border-color: #29364a;
       background: #29364a;
     }
+
+    .add-btn:hover { background: #1f2a3b; }
 
     .pill {
       display: inline-flex;
@@ -751,18 +859,17 @@
     }
 
     .card-details {
-      margin-top: 9px;
-      border-top: 1px solid #e7ecf1;
+      margin-top: 7px;
       color: var(--muted);
       font-size: 11px;
     }
 
     .card-details summary {
       cursor: pointer;
-      padding: 9px 1px 0;
-      color: #425064;
-      font-size: 12px;
-      font-weight: 800;
+      padding: 0 1px;
+      color: #687588;
+      font-size: 11px;
+      font-weight: 700;
       list-style-position: outside;
     }
 
@@ -812,19 +919,6 @@
       text-underline-offset: 2px;
     }
 
-    .option-select {
-      width: 100%;
-      min-height: 38px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: #fff;
-      color: var(--ink);
-      padding: 0 9px;
-      font: inherit;
-      font-size: 12px;
-      font-weight: 700;
-    }
-
     .note-dot {
       width: 12px;
       height: 12px;
@@ -850,107 +944,179 @@
       color: var(--muted);
     }
 
-    @media (max-width: 900px) {
-      .filter-row { justify-content: flex-start; }
-      .tools { top: 0; }
+    @media (max-width: 1024px) {
+      .filter-row { justify-content: stretch; }
+      .toolbar-row {
+        grid-template-columns: minmax(220px, 1fr) repeat(3, minmax(110px, auto)) auto;
+      }
       .summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     }
 
-    @media (max-width: 560px) {
-      .page { padding: 16px 10px 34px; }
+    @media (max-width: 640px) {
+      body { overflow-x: hidden; }
+      body.bag-open { overflow: hidden; }
+      .page { width: 100%; padding: 0 10px 34px; overflow-x: clip; }
       .intro { padding: 16px; }
       h1 { font-size: 28px; }
       .lead { font-size: 14px; }
-      .tools {
-        position: sticky;
-        top: 0;
-        margin: 12px -10px 16px;
-        padding: 10px;
-        border-left: 0;
-        border-right: 0;
-        border-radius: 0;
-      }
       .store-tabs {
         display: grid;
         grid-template-columns: minmax(0, 1fr) auto;
         gap: 8px;
         align-items: center;
-        padding-bottom: 8px;
+        margin: 0 -10px;
+        padding: 6px 10px;
+        background: #fff;
+        backdrop-filter: none;
       }
       .top-menu {
         flex-wrap: nowrap;
         overflow-x: auto;
-        padding-bottom: 2px;
+        gap: 16px;
         scrollbar-width: none;
       }
       .top-menu::-webkit-scrollbar { display: none; }
       .menu-btn {
         flex: 0 0 auto;
-        min-height: 38px;
-        padding: 0 11px;
+        min-height: 36px;
+        padding: 0;
         font-size: 13px;
       }
-      .menu-btn .menu-count {
-        min-width: 19px;
-        height: 19px;
-        margin-left: 4px;
+      .store-actions {
+        width: auto;
+        gap: 0;
+        justify-content: flex-end;
       }
-      .result-count {
-        align-self: center;
-        font-size: 12px;
+      .list-link {
+        width: 38px;
+        min-width: 38px;
+        min-height: 38px;
+        border-radius: 8px;
+        padding: 0;
+        justify-content: center;
+      }
+      .list-text { display: none; }
+      .list-icon { width: 19px; height: 19px; }
+      .list-link .menu-count {
+        position: absolute;
+        top: -4px;
+        right: -4px;
+        min-width: 17px;
+        height: 17px;
+        padding: 0 4px;
+        border: 2px solid #fff;
+        font-size: 9px;
       }
       .filter-row {
         gap: 8px;
+        padding-top: 10px;
       }
-      .filter-primary {
-        grid-template-columns: minmax(0, 1fr) auto;
+      .toolbar-row {
+        grid-template-columns: 1fr;
       }
-      .search-field {
-        grid-column: 1 / -1;
+      .toolbar-row .field:not(.search-field),
+      .toolbar-row .clear-filters {
+        display: none;
       }
-      .brand-filter {
-        grid-column: 1;
-        justify-self: start;
+      .mobile-utility-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
       }
-      .clear-filters {
-        grid-column: 2;
-        grid-row: 2;
-        justify-self: end;
-        min-height: 24px;
-        padding: 0;
+      .mobile-filters-panel.open,
+      .mobile-sort-panel.open {
+        display: grid;
+        gap: 8px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 10px;
+        background: #fff;
       }
-      .brand-filter summary {
-        min-width: 106px;
+      .mobile-filters-panel .field label,
+      .mobile-sort-panel .field label {
+        display: block;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 700;
       }
       .search, .filter-select {
-        min-height: 38px;
+        min-height: 40px;
         padding: 0 10px;
         font-size: 14px;
       }
-      .brand-filter .filter-select {
-        position: fixed;
-        left: 10px;
-        right: 10px;
-        top: auto;
-        width: calc(100% - 20px);
-      }
       .filter-chip-row {
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        padding-bottom: 2px;
-        scrollbar-width: none;
+        gap: 6px;
+        margin: 0 -10px;
+        padding: 0 10px 9px;
       }
-      .filter-chip-row::-webkit-scrollbar { display: none; }
-      .filter-chip { flex: 0 0 auto; min-height: 32px; }
+      .filter-chip { min-height: 30px; padding: 0 11px; }
+      .filter-summary { min-height: 16px; font-size: 12px; }
       .summary, .price-list { grid-template-columns: 1fr; }
       .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .card { min-height: 232px; }
-      .product-photo { min-height: 112px; }
-      .reference-img { height: 112px; }
-      .section-title { align-items: start; flex-direction: column; }
-      .tools { position: static; }
+      section { margin-top: 18px; }
+      .section-title {
+        align-items: center;
+        flex-direction: row;
+        margin-bottom: 9px;
+        padding: 5px 2px 6px 8px;
+        border-left-width: 3px;
+      }
+      .section-title h2 { font-size: 18px; }
+      .section-title span { font-size: 11px; }
+      .subsection { margin-top: 12px; }
+      .subsection-head { margin-bottom: 7px; padding-top: 1px; }
+      .subsection-head h3 { font-size: 12px; }
+      .subsection-head span { font-size: 10px; }
+      .card { min-height: 0; gap: 8px; padding: 8px 8px 10px; }
+      .product-photo, .reference-img { height: auto; aspect-ratio: 1 / 1; }
+      .reference-img { padding: 9px; }
+      .photo-code { top: 6px; right: 6px; }
+      .num { min-width: 34px; height: 22px; padding: 0 5px; font-size: 9px; }
+      .name { font-size: 14px; }
+      .maker { font-size: 11px; }
+      .chogan-product { margin-top: 4px; font-size: 10px; }
+      .card-status-row { margin-top: 6px; }
+      .status-badge { min-height: 21px; padding: 2px 6px; font-size: 9px; }
+      .purchase-row { gap: 7px; margin-top: 9px; padding-top: 8px; }
       button { flex: 1 1 auto; }
+      .format-chip { min-height: 27px; padding: 0 6px; font-size: 10px; }
+      .price-teaser { font-size: 15px; }
+      .card-buy-row { grid-template-columns: auto minmax(0, 1fr); gap: 6px; }
+      .card-qty { width: 88px; }
+      .add-btn { min-width: 0; padding: 0 7px; font-size: 11px; }
+      .card-details { margin-top: 5px; }
+      .card-details summary { font-size: 10px; }
+
+      .bag-page:not([hidden]) {
+        position: fixed;
+        z-index: 30;
+        inset: 0;
+        display: flex;
+        align-items: flex-end;
+        background: rgba(25, 34, 46, .45);
+      }
+      .bag-page .selection-panel {
+        width: 100%;
+        max-width: none;
+        max-height: min(82vh, 720px);
+        margin: 0;
+        border: 0;
+        border-radius: 14px 14px 0 0;
+        padding: 14px 12px max(14px, env(safe-area-inset-bottom));
+        box-shadow: 0 -12px 34px rgba(20, 29, 41, .2);
+        overflow: hidden;
+      }
+      .selection-head h2 { font-size: 17px; }
+      .selection-list { overflow-y: auto; }
+      .bag-close { display: inline-grid; place-items: center; flex: 0 0 36px; }
+      .selection-count { margin-left: auto; }
+    }
+
+    @media (max-width: 379px) {
+      .grid { grid-template-columns: 1fr; }
+      .product-photo, .reference-img { aspect-ratio: 4 / 3; }
+      .card-buy-row { grid-template-columns: auto minmax(0, 1fr); }
     }
 
     @media print {
@@ -972,48 +1138,70 @@
   <main class="page">
     <div class="tools">
       <div class="store-tabs">
-        <div class="top-menu" aria-label="Main menu">
+        <nav class="top-menu" aria-label="Main menu">
           <button class="menu-btn active" type="button" data-page="perfumes">Perfumes</button>
           <button class="menu-btn" type="button" data-page="body">Body Care</button>
-          <button class="menu-btn" type="button" data-page="bag">List <span id="bagMenuCount" class="menu-count">0</span></button>
+        </nav>
+        <div class="store-actions">
+          <span id="totalCount" hidden>0</span>
+          <button class="list-link" type="button" data-page="bag" aria-label="My List">
+            <svg class="list-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M6 7h12l-1 11H7L6 7Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+              <path d="M9 9V7a3 3 0 0 1 6 0v2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+            <span class="list-text">My List</span>
+            <span id="bagMenuCount" class="menu-count">0</span>
+          </button>
         </div>
-        <span class="result-count"><span id="totalCount">0</span> items</span>
       </div>
       <div id="filters" class="filter-row">
-        <div class="filter-primary">
+        <div id="categoryChips" class="filter-chip-row" aria-label="Perfume categories">
+          <button class="filter-chip" type="button" data-category="Women" aria-pressed="false">Women</button>
+          <button class="filter-chip" type="button" data-category="Men" aria-pressed="false">Men</button>
+          <button class="filter-chip" type="button" data-category="Unisex" aria-pressed="false">Unisex</button>
+          <button class="filter-chip" type="button" data-category="Kids" aria-pressed="false">Kids</button>
+        </div>
+        <div class="toolbar-row">
           <div class="field search-field">
             <label for="search">Search</label>
-            <input id="search" class="search" type="search" placeholder="Search fragrance, brand or code..." aria-label="Search">
+            <input id="search" class="search" type="search" placeholder="Search perfume, brand, Chogan code..." aria-label="Search">
           </div>
-          <details id="brandFilterMenu" class="brand-filter">
-            <summary id="brandFilterLabel">Brand</summary>
+          <div id="brandFilterField" class="field">
+            <label for="brandFilter">Brand</label>
             <select id="brandFilter" class="filter-select" aria-label="Brand"></select>
-          </details>
+          </div>
+          <div class="field">
+            <label for="statusFilter">Match quality</label>
+            <select id="statusFilter" class="filter-select" aria-label="Match quality"></select>
+          </div>
+          <div class="field">
+            <label for="sortFilter">Sort</label>
+            <select id="sortFilter" class="filter-select" aria-label="Sort"></select>
+          </div>
           <button id="clearCatalogueFilters" class="clear-filters" type="button" hidden>Clear filters</button>
         </div>
-        <select id="categoryFilter" hidden aria-label="Category"></select>
-        <select id="statusFilter" hidden aria-label="Match confidence"></select>
-        <div class="filter-chip-groups">
-          <div id="categoryChips" class="filter-chip-row" aria-label="Categories">
-            <button class="filter-chip active" type="button" data-category="all" aria-pressed="true">All</button>
-            <button class="filter-chip" type="button" data-category="Women" aria-pressed="false">Women</button>
-            <button class="filter-chip" type="button" data-category="Men" aria-pressed="false">Men</button>
-            <button class="filter-chip" type="button" data-category="Unisex" aria-pressed="false">Unisex</button>
-            <button class="filter-chip" type="button" data-category="Premium" aria-pressed="false">Premium</button>
-            <button class="filter-chip" type="button" data-category="Luxury" aria-pressed="false">Luxury</button>
-            <button class="filter-chip" type="button" data-category="Kids" aria-pressed="false">Kids</button>
-            <button class="filter-chip" type="button" data-category="New" aria-pressed="false">New</button>
+        <div class="mobile-utility-row">
+          <button id="mobileFiltersButton" class="mobile-toggle" type="button" aria-expanded="false">Filters</button>
+          <button id="mobileSortButton" class="mobile-toggle" type="button" aria-expanded="false">Sort</button>
+        </div>
+        <div id="mobileFiltersPanel" class="mobile-filters-panel">
+          <div class="field">
+            <label for="mobileBrandFilter">Brand</label>
+            <select id="mobileBrandFilter" class="filter-select" aria-label="Brand"></select>
           </div>
-          <div id="confidenceChips" class="filter-chip-row" aria-label="Match confidence">
-            <button class="filter-chip active" type="button" data-confidence="all" aria-pressed="true">All</button>
-            <button class="filter-chip" type="button" data-confidence="Confirmed" aria-pressed="false">Confirmed</button>
-            <button class="filter-chip" type="button" data-confidence="Very likely" aria-pressed="false">Very likely</button>
-            <button class="filter-chip" type="button" data-confidence="Probable" aria-pressed="false">Probable</button>
-            <button class="filter-chip" type="button" data-confidence="Possible" aria-pressed="false">Possible</button>
-            <button class="filter-chip" type="button" data-confidence="Original / no dupe" aria-pressed="false">Original</button>
-            <button class="filter-chip" type="button" data-confidence="Unknown" aria-pressed="false">Unknown</button>
+          <div class="field">
+            <label for="mobileStatusFilter">Match quality</label>
+            <select id="mobileStatusFilter" class="filter-select" aria-label="Match quality"></select>
+          </div>
+          <button id="mobileClearCatalogueFilters" class="mobile-clear-filters" type="button">Clear filters</button>
+        </div>
+        <div id="mobileSortPanel" class="mobile-sort-panel">
+          <div class="field">
+            <label for="mobileSortFilter">Sort</label>
+            <select id="mobileSortFilter" class="filter-select" aria-label="Sort"></select>
           </div>
         </div>
+        <select id="categoryFilter" hidden aria-label="Category"></select>
         <p id="filterSummary" class="filter-summary" hidden></p>
       </div>
     </div>
@@ -1033,6 +1221,7 @@
             <p>For screenshotting or copying.</p>
           </div>
           <span id="selectionCount" class="selection-count">0</span>
+          <button id="closeBag" class="bag-close" type="button" aria-label="Close My List">&times;</button>
         </div>
         <div id="selectionList" class="selection-list"></div>
         <div class="selection-total">
@@ -1340,6 +1529,21 @@
       {section:'Body care products', group:'Body Care', accent:'#586a78', no:'OIL', name:'Perfumed Sweet Almond Oil', brand:'Chogan', type:'Body care', size:'100 ml', price:'23.90 EUR'}
     ];
 
+    const standardPerfumeOptions = [
+      { label: '30 ml - 18,00 €', size: '30 ml', price: '18,00 €' },
+      { label: '70 ml - 35,00 €', size: '70 ml', price: '35,00 €' },
+      { label: '15 ml - 11,90 €', size: '15 ml', price: '11,90 €' },
+      { label: '5x15 ml - 54,90 €', size: '5x15 ml', price: '54,90 €' },
+      { label: '3 ml - 1,00 €', size: '3 ml', price: '1,00 €' }
+    ];
+
+    const luxuryPerfumeOptions = [
+      { label: '50 ml - 52,00 €', size: '50 ml', price: '52,00 €' },
+      { label: '15 ml - 19,90 €', size: '15 ml', price: '19,90 €' },
+      { label: '5x15 ml - 95,90 €', size: '5x15 ml', price: '95,90 €' },
+      { label: '3 ml - 1,50 €', size: '3 ml', price: '1,50 €' }
+    ];
+
     const legacyCatalogueItems = [
       ...products.map(item => {
         const lowerSection = item.section.toLowerCase();
@@ -1356,7 +1560,7 @@
         }
         if (item.group === 'Luxury') {
           const price = '52,00 €';
-          return { ...item, image, audience, tier, group: audience, section, type: 'Luxury perfume', size: '50 ml', price, options: [{ label: '50 ml - 52,00 €', size: '50 ml', price }] };
+          return { ...item, image, audience, tier, group: audience, section, type: 'Luxury perfume', size: '50 ml', price, options: luxuryPerfumeOptions };
         }
         return {
           ...item,
@@ -1368,10 +1572,7 @@
           type: 'Perfume',
           size: '70 ml',
           price: '35,00 €',
-          options: [
-            { label: '70 ml - 35,00 €', size: '70 ml', price: '35,00 €' },
-            { label: '30 ml - 18,00 €', size: '30 ml', price: '18,00 €' },
-          ]
+          options: standardPerfumeOptions
         };
       }),
       ...bodyProducts.map(item => ({ ...item, image: referenceImages[item.no], audience: 'Body Care', tier: 'Body Care', options: [{ label: `${item.size} - ${item.price}`, size: item.size, price: item.price }] }))
@@ -1386,23 +1587,29 @@
       if (!item.current_code && !item.legacy_code) return item;
       const no = item.current_code || item.legacy_code;
       const isBody = item.category === 'Body Care';
+      const audience = isBody ? 'Body Care' : (item.gender_category || item.group || item.category);
       const tier = isBody ? 'Body Care' : item.category === 'New' ? 'New' : /luxury/i.test(item.type) ? 'Luxury' : /premium/i.test(item.type) ? 'Premium' : /kids/i.test(item.type) ? 'Kids' : 'Standard';
       const size = isBody ? (item.notes.match(/\b\d+\s*ml\b/i) || [''])[0] : tier === 'Luxury' ? '50 ml' : tier === 'Kids' ? '30 ml' : '70 ml';
       const price = item.price || 'Price unavailable';
+      const isChoganReference = ['Unknown', 'Original / no dupe'].includes(item.match_confidence);
       return {
         ...item,
         no,
-        name: ['Unknown', 'Original / no dupe'].includes(item.match_confidence) ? (item.chogan_name || no) : (item.reference_perfume || item.chogan_name || no),
-        brand: item.reference_brand || (isBody ? 'Chogan' : ''),
-        group: item.category,
-        section: item.subcategory,
-        audience: item.gender_category || item.category,
+        name: isChoganReference ? (item.chogan_name || no) : (item.reference_perfume || item.chogan_name || no),
+        brand: isBody || isChoganReference ? 'Chogan' : (item.reference_brand || 'Chogan'),
+        group: audience,
+        section: audience,
+        audience,
         tier,
         size,
         price,
         image: item.image || referenceImages[item.legacy_code] || referenceImages[item.current_code],
         accent: statusAccents[item.category] || '#586a78',
-        options: [{ label: [size, price].filter(Boolean).join(' - '), size, price }]
+        options: tier === 'Standard'
+          ? standardPerfumeOptions
+          : tier === 'Luxury'
+            ? luxuryPerfumeOptions
+            : [{ label: [size, price].filter(Boolean).join(' - '), size, price }]
       };
     });
 
@@ -1415,20 +1622,26 @@
     const categoryFilter = document.getElementById('categoryFilter');
     const brandFilter = document.getElementById('brandFilter');
     const statusFilter = document.getElementById('statusFilter');
-    const brandFilterMenu = document.getElementById('brandFilterMenu');
-    const brandFilterLabel = document.getElementById('brandFilterLabel');
+    const sortFilter = document.getElementById('sortFilter');
+    const mobileBrandFilter = document.getElementById('mobileBrandFilter');
+    const mobileStatusFilter = document.getElementById('mobileStatusFilter');
+    const mobileSortFilter = document.getElementById('mobileSortFilter');
+    const mobileFiltersButton = document.getElementById('mobileFiltersButton');
+    const mobileSortButton = document.getElementById('mobileSortButton');
+    const mobileFiltersPanel = document.getElementById('mobileFiltersPanel');
+    const mobileSortPanel = document.getElementById('mobileSortPanel');
     const clearCatalogueFilters = document.getElementById('clearCatalogueFilters');
+    const mobileClearCatalogueFilters = document.getElementById('mobileClearCatalogueFilters');
     const filterSummary = document.getElementById('filterSummary');
     const categoryChips = document.getElementById('categoryChips');
-    const confidenceChips = document.getElementById('confidenceChips');
     const categoryChipButtons = [...categoryChips.querySelectorAll('[data-category]')];
-    const confidenceChipButtons = [...confidenceChips.querySelectorAll('[data-confidence]')];
     const selectionList = document.getElementById('selectionList');
     const selectionCount = document.getElementById('selectionCount');
     const selectionTotal = document.getElementById('selectionTotal');
     const bagMenuCount = document.getElementById('bagMenuCount');
     const copySelection = document.getElementById('copySelection');
     const clearSelection = document.getElementById('clearSelection');
+    const closeBag = document.getElementById('closeBag');
     const menuButtons = [...document.querySelectorAll('[data-page]')];
     const totalCount = document.getElementById('totalCount');
     let currentPage = 'perfumes';
@@ -1441,20 +1654,30 @@
       Men: 'Men',
       Unisex: 'Unisex',
       Kids: 'Kids',
-      New: 'New',
       'Body Care': 'Body Care'
     };
 
     const statusLabels = [
-      'Confirmed', 'Very likely', 'Probable', 'Possible',
-      'Unknown', 'Original / no dupe'
+      'Confirmed', 'Very likely', 'Probable / Possible', 'Original', 'Unknown'
     ];
+
+    const sortLabels = [
+      'Recommended', 'A-Z', 'Brand', 'Price low to high', 'Price high to low', 'Match quality'
+    ];
+
+    function normalizedConfidence(item) {
+      if (item.match_confidence === 'Confirmed') return 'Confirmed';
+      if (item.match_confidence === 'Very likely') return 'Very likely';
+      if (item.match_confidence === 'Probable' || item.match_confidence === 'Possible') return 'Probable / Possible';
+      if (item.match_confidence === 'Original / no dupe') return 'Original';
+      if (item.match_confidence === 'Unknown') return 'Unknown';
+      return '';
+    }
 
     function primaryStatus(item) {
       if (item.match_confidence === 'Confirmed') return { label: 'Confirmed', className: 'status-confirmed' };
       if (item.match_confidence === 'Very likely') return { label: 'Very likely', className: 'status-likely' };
-      if (item.match_confidence === 'Probable') return { label: 'Probable', className: 'status-probable' };
-      if (item.match_confidence === 'Possible') return { label: 'Possible', className: 'status-possible' };
+      if (item.match_confidence === 'Probable' || item.match_confidence === 'Possible') return { label: 'Probable / Possible', className: 'status-probable' };
       if (item.match_confidence === 'Original / no dupe') return { label: 'Original', className: 'status-original' };
       return { label: 'Unknown', className: 'status-unknown' };
     }
@@ -1472,11 +1695,12 @@
       const items = viewItems();
       const categories = ['all', ...new Set(items.map(item => item.group))];
       const brands = ['all', ...new Set(items.map(item => item.brand).filter(Boolean).sort((a, b) => a.localeCompare(b)))];
-      const statuses = ['all', ...statusLabels.filter(value => items.some(item => item.match_confidence === value))];
+      const statuses = ['all', ...statusLabels.filter(value => items.some(item => normalizedConfidence(item) === value))];
 
       if (!categories.includes(categoryFilter.value)) categoryFilter.value = 'all';
       if (!brands.includes(brandFilter.value)) brandFilter.value = 'all';
       if (!statuses.includes(statusFilter.value)) statusFilter.value = 'all';
+      if (!sortLabels.includes(sortFilter.value || 'Recommended')) sortFilter.value = 'Recommended';
 
       fillSelect(
         categoryFilter,
@@ -1492,8 +1716,32 @@
 
       fillSelect(
         statusFilter,
-        statuses.map(value => ({ value, label: value === 'all' ? 'All confidence' : value === 'Original / no dupe' ? 'Original' : value })),
+        statuses.map(value => ({ value, label: value === 'all' ? 'All matches' : value })),
         statusFilter.value || 'all'
+      );
+
+      fillSelect(
+        sortFilter,
+        sortLabels.map(value => ({ value, label: value })),
+        sortFilter.value || 'Recommended'
+      );
+
+      fillSelect(
+        mobileBrandFilter,
+        brands.map(value => ({ value, label: value === 'all' ? 'All brands' : value })),
+        brandFilter.value || 'all'
+      );
+
+      fillSelect(
+        mobileStatusFilter,
+        statuses.map(value => ({ value, label: value === 'all' ? 'All matches' : value })),
+        statusFilter.value || 'all'
+      );
+
+      fillSelect(
+        mobileSortFilter,
+        sortLabels.map(value => ({ value, label: value })),
+        sortFilter.value || 'Recommended'
       );
 
     }
@@ -1503,6 +1751,7 @@
       const category = categoryFilter.value || 'all';
       const status = statusFilter.value || 'all';
       const brand = brandFilter.value || 'all';
+      const queryValue = search.value.trim();
 
       categoryChipButtons.forEach(button => {
         const value = button.dataset.category;
@@ -1512,27 +1761,35 @@
         button.setAttribute('aria-pressed', String(value === category));
       });
 
-      confidenceChipButtons.forEach(button => {
-        const value = button.dataset.confidence;
-        const available = value === 'all' || items.some(item => item.match_confidence === value);
-        button.disabled = !available;
-        button.classList.toggle('active', value === status);
-        button.setAttribute('aria-pressed', String(value === status));
-      });
-
-      brandFilterLabel.textContent = brand === 'all' ? 'Brand' : brand;
-
       const active = [];
-      if (search.value.trim()) active.push(`“${search.value.trim()}”`);
+      if (queryValue) active.push(`“${queryValue}”`);
       if (category !== 'all') active.push(categoryLabels[category] || category);
-      if (status !== 'all') active.push(status === 'Original / no dupe' ? 'Original' : status);
+      if (status !== 'all') active.push(status);
       if (brand !== 'all') active.push(brand);
+      if ((sortFilter.value || 'Recommended') !== 'Recommended') active.push(sortFilter.value);
 
       clearCatalogueFilters.hidden = active.length === 0;
-      filterSummary.hidden = active.length === 0;
-      filterSummary.textContent = active.length
-        ? `Showing ${filteredCount} item${filteredCount === 1 ? '' : 's'} · ${active.join(' · ')}`
-        : '';
+
+      let summary = '';
+      if (queryValue) {
+        summary = `Showing ${filteredCount} result${filteredCount === 1 ? '' : 's'} for "${queryValue}"`;
+      } else if (currentView === 'body') {
+        summary = `${filteredCount} body care item${filteredCount === 1 ? '' : 's'}`;
+      } else if (category !== 'all') {
+        const audience = category === 'Kids' ? 'kids' : `${category.toLowerCase()}'s`;
+        summary = `${filteredCount} ${audience} perfume${filteredCount === 1 ? '' : 's'}`;
+      } else {
+        summary = `${filteredCount} perfume item${filteredCount === 1 ? '' : 's'}`;
+      }
+
+      const secondary = [];
+      if (!queryValue && category !== 'all') secondary.push(categoryLabels[category] || category);
+      if (brand !== 'all') secondary.push(`Brand: ${brand}`);
+      if (status !== 'all') secondary.push(`Match: ${status}`);
+      if ((sortFilter.value || 'Recommended') !== 'Recommended') secondary.push(`Sort: ${sortFilter.value}`);
+
+      filterSummary.hidden = false;
+      filterSummary.textContent = secondary.length ? `${summary} · ${secondary.join(' · ')}` : summary;
     }
 
     function normalize(value) {
@@ -1548,15 +1805,24 @@
       return value.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' });
     }
 
-    function addToSelection(card) {
-      const item = catalogueItems.find(entry => entry.no === card.dataset.no);
-      const select = card.querySelector('.option-select');
-      const option = item.options[select.selectedIndex] || item.options[0];
+    function minimumOptionPrice(item) {
+      return Math.min(...item.options.map(option => priceValue(option.price)));
+    }
+
+    function compactChoganName(name) {
+      const cleaned = (name || '')
+        .replace(/\s*-\s*(?:Unisex\s+)?(?:Luxury\s+)?Perfume.*$/i, '')
+        .replace(/^Perfume.*$/i, '')
+        .trim();
+      return cleaned || 'Fragrance';
+    }
+
+    function addSelectionItem(item, option, quantity = 1) {
       const key = `${item.no}|${option.size}|${option.price}`;
       const existing = selectedItems.find(entry => entry.key === key);
 
       if (existing) {
-        existing.qty += 1;
+        existing.qty += quantity;
       } else {
         selectedItems.push({
           key,
@@ -1567,11 +1833,20 @@
           type: item.type,
           size: option.size,
           price: option.price,
-          qty: 1
+          qty: quantity
         });
       }
 
       renderSelection();
+    }
+
+    function addCardSelection(card) {
+      const item = catalogueItems.find(entry => entry.no === card.dataset.no);
+      if (!item) return;
+      const selectedChip = card.querySelector('.format-chip.selected');
+      const option = item.options[Number(selectedChip?.dataset.optionIndex || 0)] || item.options[0];
+      const quantity = Number(card.querySelector('.card-qty-value')?.textContent || 1);
+      addSelectionItem(item, option, quantity);
     }
 
     function changeQuantity(key, amount) {
@@ -1619,8 +1894,9 @@
             <div>
               <p class="selection-name">${item.no} ${item.name}</p>
               <p class="selection-sub">${item.group === 'Body Care' ? item.type : `Inspired by ${item.brand}`} - ${item.size}</p>
+              <p class="selection-sub">Unit price: ${item.price}</p>
             </div>
-            <div class="selection-price">${formatEuro(priceValue(item.price) * item.qty)}</div>
+            <div class="selection-price"><span>Line total</span><strong>${formatEuro(priceValue(item.price) * item.qty)}</strong></div>
           </div>
           <div class="qty-row">
             <button class="qty-btn" type="button" data-qty-change="-1" aria-label="Decrease quantity">-</button>
@@ -1634,9 +1910,12 @@
 
     function setPage(page) {
       currentPage = page;
-      browsePage.hidden = page !== 'perfumes' && page !== 'body';
+      const mobileBag = page === 'bag' && window.matchMedia('(max-width: 640px)').matches;
+      browsePage.hidden = mobileBag ? false : page !== 'perfumes' && page !== 'body';
       bagPage.hidden = page !== 'bag';
       filters.hidden = page !== 'perfumes' && page !== 'body';
+      categoryChips.hidden = page !== 'perfumes';
+      document.body.classList.toggle('bag-open', mobileBag);
 
       menuButtons.forEach(button => button.classList.toggle('active', button.dataset.page === page));
 
@@ -1645,6 +1924,7 @@
         categoryFilter.value = 'all';
         brandFilter.value = 'all';
         statusFilter.value = 'all';
+        sortFilter.value = 'Recommended';
         updateFilterOptions();
         render();
       } else {
@@ -1652,57 +1932,83 @@
       }
     }
 
+    function closeBagSheet() {
+      currentPage = currentView;
+      bagPage.hidden = true;
+      browsePage.hidden = false;
+      filters.hidden = false;
+      categoryChips.hidden = currentView !== 'perfumes';
+      document.body.classList.remove('bag-open');
+      menuButtons.forEach(button => button.classList.toggle('active', button.dataset.page === currentView));
+    }
+
     function render() {
       const query = normalize(search.value.trim());
       const category = categoryFilter.value || 'all';
       const brand = brandFilter.value || 'all';
       const status = statusFilter.value || 'all';
+      const sortValue = sortFilter.value || 'Recommended';
       const filtered = viewItems().filter(item => {
         const haystack = normalize([item.no, item.legacy_code, item.current_code, item.chogan_name, item.name, item.brand, item.group, item.section, item.type, item.tier, item.size, item.price, item.verification_status, item.match_confidence].join(' '));
         const matchesSearch = !query || haystack.includes(query);
         const matchesCategory = category === 'all' || item.group === category;
         const matchesBrand = brand === 'all' || item.brand === brand;
-        const matchesStatus = status === 'all' || item.match_confidence === status;
+        const matchesStatus = status === 'all' || normalizedConfidence(item) === status;
         return matchesSearch && matchesCategory && matchesBrand && matchesStatus;
+      }).sort((a, b) => {
+        if (sortValue === 'A-Z') return a.name.localeCompare(b.name);
+        if (sortValue === 'Brand') return (a.brand || '').localeCompare(b.brand || '') || a.name.localeCompare(b.name);
+        if (sortValue === 'Price low to high') return minimumOptionPrice(a) - minimumOptionPrice(b);
+        if (sortValue === 'Price high to low') return minimumOptionPrice(b) - minimumOptionPrice(a);
+        if (sortValue === 'Match quality') {
+          const order = { 'Confirmed': 0, 'Very likely': 1, 'Probable / Possible': 2, 'Original': 3, 'Unknown': 4 };
+          return (order[normalizedConfidence(a)] ?? 9) - (order[normalizedConfidence(b)] ?? 9);
+        }
+        return 0;
       });
 
-      const sections = [...new Set(filtered.map(item => item.section))];
-      catalogue.innerHTML = sections.map(section => {
-        const items = filtered.filter(item => item.section === section);
-        const sectionClass = items[0].group === 'Women' ? 'femme' : items[0].group === 'Men' ? 'homme' : items[0].group === 'Unisex' ? 'mixte' : items[0].group === 'Body Care' ? 'body' : 'luxe';
-        return `
-          <section>
-            <div class="section-title ${sectionClass}">
-              <h2>${section}</h2>
-              <span>${items.length} reference${items.length > 1 ? 's' : ''}</span>
-            </div>
+      const tierOrder = ['Standard', 'Premium', 'Luxury', 'New'];
+      const sectionOrder = currentView === 'body' ? ['Body Care'] : ['Women', 'Men', 'Unisex', 'Kids'];
+      catalogue.innerHTML = sectionOrder.map(section => {
+        const sectionItems = filtered.filter(item => item.group === section);
+        if (!sectionItems.length) return '';
+        const sectionClass = section === 'Women' ? 'femme' : section === 'Men' ? 'homme' : section === 'Unisex' ? 'mixte' : section === 'Body Care' ? 'body' : 'luxe';
+        const renderCards = items => `
             <div class="grid">
               ${items.map(item => {
                 const primary = primaryStatus(item);
                 const referenceName = item.match_confidence === 'Original / no dupe' ? 'Original Chogan creation' : item.match_confidence === 'Unknown' ? 'Reference unknown' : item.name;
-                const referenceBrand = item.match_confidence === 'Original / no dupe' ? 'Chogan original' : item.match_confidence === 'Unknown' ? 'No verified reference' : (item.brand || 'No verified reference');
+                const referenceBrand = item.match_confidence === 'Original / no dupe' || item.match_confidence === 'Unknown' ? 'Chogan' : (item.brand || 'Chogan');
                 return `
                 <article class="card ${item.category === 'New' ? 'is-new' : ''}" style="--accent:${item.accent}" data-no="${item.no}">
                   <div class="product-photo" aria-hidden="true">
-                          ${item.image ? `<img class="reference-img" src="${item.image}" alt="${item.brand} ${item.name} reference image" loading="eager" onerror="this.replaceWith(Object.assign(document.createElement('div'), {className: 'bottle'}))">` : `<div class="bottle"></div>`}
+                    <span class="num photo-code">${item.current_code || item.legacy_code || item.no}</span>
+                    ${item.image ? `<img class="reference-img" src="${item.image}" alt="${item.brand} ${item.name} reference image" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'), {className: 'bottle'}))">` : `<div class="bottle"></div>`}
                   </div>
                   <div class="product">
                     <div class="product-head">
                       <p class="name">${referenceName}</p>
-                      <span class="num">${item.current_code || item.legacy_code || item.no}</span>
                     </div>
-                    <p class="maker"><strong>${item.match_confidence === 'Confirmed' ? 'Reference brand' : item.match_confidence === 'Original / no dupe' ? 'Origin' : 'Suggested reference'}</strong>${referenceBrand}</p>
-                    ${item.chogan_name ? `<p class="chogan-product"><strong>Chogan</strong> · ${item.chogan_name}</p>` : ''}
+                    <p class="maker">${referenceBrand}</p>
+                    ${item.chogan_name ? `<p class="chogan-product"><strong>Chogan</strong> · ${compactChoganName(item.chogan_name)}</p>` : ''}
                     <div class="card-status-row">
                       <span class="status-badge ${primary.className}">${primary.label}</span>
                       ${item.category === 'New' ? '<span class="new-layer-label">New / Unverified</span>' : ''}
                     </div>
                     <div class="purchase-row">
-                      <select class="option-select" aria-label="Choose size and price for ${referenceName}">
-                        ${item.options.map(option => `<option data-size="${option.size}" data-price="${option.price}">${[option.size, option.price].filter(Boolean).join(' · ')}</option>`).join('')}
-                      </select>
+                      <div class="format-chips" role="group" aria-label="Choose format for ${referenceName}">
+                        ${item.options.map((option, index) => `<button class="format-chip ${index === 0 ? 'selected' : ''}" type="button" data-option-index="${index}" aria-pressed="${index === 0 ? 'true' : 'false'}">${option.size}</button>`).join('')}
+                      </div>
+                      <span class="price-teaser" data-selected-price>${item.options[0].price}</span>
+                      <div class="card-buy-row">
+                        <div class="card-qty" aria-label="Quantity">
+                          <button class="card-qty-btn" type="button" data-card-qty="-1" aria-label="Decrease quantity">&minus;</button>
+                          <span class="card-qty-value">1</span>
+                          <button class="card-qty-btn" type="button" data-card-qty="1" aria-label="Increase quantity">+</button>
+                        </div>
+                        <button class="add-btn" type="button" data-add-item>Add to list</button>
+                      </div>
                     </div>
-                    <button class="add-btn" type="button" data-add-item>Add to list</button>
                     <details class="card-details">
                       <summary>Notes &amp; details</summary>
                       <dl class="technical-details">
@@ -1720,7 +2026,33 @@
                   </div>
                 </article>
               `}).join('')}
+            </div>`;
+
+        const selectedAudience = ['Women', 'Men', 'Unisex', 'Kids'].includes(category);
+        const subsections = section === 'Body Care' || section === 'Kids'
+          ? renderCards(sectionItems)
+          : tierOrder.map(tier => {
+              const tierItems = sectionItems.filter(item => item.tier === tier);
+              if (!tierItems.length) return '';
+              if (selectedAudience && category !== section) return '';
+              return `
+                <div class="subsection">
+                  <div class="subsection-head">
+                    <h3>${tier}</h3>
+                    <span>${tierItems.length} item${tierItems.length === 1 ? '' : 's'}</span>
+                  </div>
+                  ${renderCards(tierItems)}
+                </div>
+              `;
+            }).join('');
+
+        return `
+          <section>
+            <div class="section-title ${sectionClass}">
+              <h2>${section}</h2>
+              <span>${sectionItems.length} reference${sectionItems.length > 1 ? 's' : ''}</span>
             </div>
+            ${subsections}
           </section>
         `;
       }).join('');
@@ -1737,14 +2069,28 @@
       categoryFilter.value = button.dataset.category;
       render();
     });
-    confidenceChips.addEventListener('click', event => {
-      const button = event.target.closest('[data-confidence]');
-      if (!button || button.disabled) return;
-      statusFilter.value = button.dataset.confidence;
+    brandFilter.addEventListener('change', () => {
+      mobileBrandFilter.value = brandFilter.value;
       render();
     });
-    brandFilter.addEventListener('change', () => {
-      brandFilterMenu.open = false;
+    mobileBrandFilter.addEventListener('change', () => {
+      brandFilter.value = mobileBrandFilter.value;
+      render();
+    });
+    statusFilter.addEventListener('change', () => {
+      mobileStatusFilter.value = statusFilter.value;
+      render();
+    });
+    mobileStatusFilter.addEventListener('change', () => {
+      statusFilter.value = mobileStatusFilter.value;
+      render();
+    });
+    sortFilter.addEventListener('change', () => {
+      mobileSortFilter.value = sortFilter.value;
+      render();
+    });
+    mobileSortFilter.addEventListener('change', () => {
+      sortFilter.value = mobileSortFilter.value;
       render();
     });
     clearCatalogueFilters.addEventListener('click', () => {
@@ -1752,13 +2098,53 @@
       categoryFilter.value = 'all';
       brandFilter.value = 'all';
       statusFilter.value = 'all';
-      brandFilterMenu.open = false;
+      sortFilter.value = 'Recommended';
+      mobileBrandFilter.value = 'all';
+      mobileStatusFilter.value = 'all';
+      mobileSortFilter.value = 'Recommended';
       render();
     });
+    mobileClearCatalogueFilters.addEventListener('click', () => clearCatalogueFilters.click());
+    mobileFiltersButton.addEventListener('click', () => {
+      const open = !mobileFiltersPanel.classList.contains('open');
+      mobileFiltersPanel.classList.toggle('open', open);
+      mobileSortPanel.classList.remove('open');
+      mobileFiltersButton.setAttribute('aria-expanded', String(open));
+      mobileSortButton.setAttribute('aria-expanded', 'false');
+    });
+    mobileSortButton.addEventListener('click', () => {
+      const open = !mobileSortPanel.classList.contains('open');
+      mobileSortPanel.classList.toggle('open', open);
+      mobileFiltersPanel.classList.remove('open');
+      mobileSortButton.setAttribute('aria-expanded', String(open));
+      mobileFiltersButton.setAttribute('aria-expanded', 'false');
+    });
     catalogue.addEventListener('click', event => {
-      const button = event.target.closest('[data-add-item]');
-      if (!button) return;
-      addToSelection(button.closest('.card'));
+      const card = event.target.closest('.card');
+      if (!card) return;
+
+      const formatChip = event.target.closest('.format-chip');
+      if (formatChip) {
+        const item = catalogueItems.find(entry => entry.no === card.dataset.no);
+        const option = item?.options[Number(formatChip.dataset.optionIndex)];
+        if (!option) return;
+        card.querySelectorAll('.format-chip').forEach(chip => {
+          const selected = chip === formatChip;
+          chip.classList.toggle('selected', selected);
+          chip.setAttribute('aria-pressed', String(selected));
+        });
+        card.querySelector('[data-selected-price]').textContent = option.price;
+        return;
+      }
+
+      const quantityButton = event.target.closest('[data-card-qty]');
+      if (quantityButton) {
+        const quantityValue = card.querySelector('.card-qty-value');
+        quantityValue.textContent = Math.max(1, Number(quantityValue.textContent) + Number(quantityButton.dataset.cardQty));
+        return;
+      }
+
+      if (event.target.closest('[data-add-item]')) addCardSelection(card);
     });
     selectionList.addEventListener('click', event => {
       const item = event.target.closest('[data-selection-key]');
@@ -1767,6 +2153,10 @@
       const qtyButton = event.target.closest('[data-qty-change]');
       if (qtyButton) changeQuantity(key, Number(qtyButton.dataset.qtyChange));
       if (event.target.closest('[data-remove-item]')) removeSelection(key);
+    });
+    closeBag.addEventListener('click', closeBagSheet);
+    bagPage.addEventListener('click', event => {
+      if (event.target === bagPage && window.matchMedia('(max-width: 640px)').matches) closeBagSheet();
     });
     clearSelection.addEventListener('click', () => {
       selectedItems = [];
